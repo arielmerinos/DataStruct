@@ -1,0 +1,57 @@
+La dinámica del curso, es que en la clase vamos a programar una estructura de datos y en la tarea vamos a entregar el trabajo con esas mismas estructuras 
+
+Las prácticas son inidviduales 
+
+
+Casi todas las prácticas se entregana lo días lunes
+
+
+
+		ESTRUCTURAS DE DATOS
+Es una forma de acceder, modificar y ver un conjunto de datos
+
+En casi todas las estrucuturas de datos tenemos que poder
+-insertar
+-Editar
+-Consultar
+-Eliminar
+
+
+Tipos de estructuras
+
+*Arreglos
+*Listas
+*Pilas- colas
+*Árboles
+
+
+	ARREGLOS
+Espacio de memoria contiguo con tamaño definido 
+Ventajas de arreglos con Java
+Acceso constante al lugar de memoria que tengo
+Es fácil de consltar valores con las posiciones
+Manera más rápida de eliminar
+Es rápido traer de la memoria los valores porque está indexado
+
+
+Operaciones básicas de los arreglos
+-Insertar
+-Eliminar
+-Buscar
+
+Sintaxis para crear un arreglo en java
+
+int[] array = new int[5];
+array[]
+
+
+Si es entero el arreglo se llena de 0
+Si es un arreglo de tipo objeto se llena de null
+
+
+En los tipos primitivos realmente no se elimina nada, sólo pasa algo diferente que aún no hemos visto nada de eso (cotas y tal)
+
+La desventaja de los arreglos para añadir mśa elementos de los indicados hay que copiar todo, la única manera de hacer un arreglo dinámico es copiar los valores
+
+
+Son malos cuando el conjunto crece demasiado, es malo para eso, se usan para cosas que sabemos tendrán cierto límite de crecimiento

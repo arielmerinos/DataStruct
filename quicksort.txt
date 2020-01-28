@@ -1,0 +1,33 @@
+QuickSort
+Es un algoritmo para ordenar elementos, sólo se pueden ordenar aquellos que sean comparables entre sí
+
+Una manera de ordenar puede ser por ejemplo poner 6.3.9.7.1.4.2.5.8 y que quede de manera ordenada
+
+
+6 en medio 
+poner todos los menores de un lado
+
+3.1.4.2.5 6 9.7.8
+
+Luego hacer lo mismo de manera recursiva en la mitad de cada lado para ordenarlos hasta llegar al final
+
+Tiempo de ejecución y memoria que son los parámetros para ordenar algo. Es parte dela optimización, la memoria casi no le importa a casi nadie pero el tiempo de ejecución es in prámetro importante
+
+poner dos variables, el primer elememto se llama elemento
+
+1. Es menor que el privote
+	1.1 Sí, que se qude
+	1.2 No, vemos el otro apuntador, j es menor que el pivote
+		1.2.1 Sí, que se quede
+		1.2.2 No, lo cambiamos con i
+	
+Caso especial donde ambos índices se encuentran, poner el pivote un lugar antaes de donde se encontraron
+
+Hay que hacer lo mismo de nuevo, con elpivote y los intercambios
+
+
+
+¿Cómo iniciar con esto en Java?
+
+public class
+

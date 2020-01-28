@@ -55,3 +55,9 @@ La desventaja de los arreglos para añadir mśa elementos de los indicados hay q
 
 
 Son malos cuando el conjunto crece demasiado, es malo para eso, se usan para cosas que sabemos tendrán cierto límite de crecimiento
+
+Arreglos dinámicos
+	-Insertar
+	-Eliminar
+	-Buscar
+	QuickSort

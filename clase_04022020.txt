@@ -1,0 +1,13 @@
+public class ArregloDinamico<T> implements Iterable{
+	//Esto hace que la clase Areglo-- sea iterable
+	@Overrride
+	public Interator<T> iterator(){
+	
+	/**
+	* La clase interna
+	return new Iterador();
+	}
+
+
+
+}

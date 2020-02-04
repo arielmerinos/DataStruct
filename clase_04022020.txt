@@ -7,7 +7,23 @@ public class ArregloDinamico<T> implements Iterable{
 	* La clase interna
 	return new Iterador();
 	}
-
-
-
 }
+
+Los iteradores sirven para recorrer toda la estrucura entonces no sirve por ejemplo para agregar o cuando necesitemos utilizar algun indice, porque no lo devuelve
+
+
+Si se usara un iterador para insertar tardaría O(n) porque recorrería toda la estructura, sin embargo al emplear el índice se hace en tiempo constante.
+
+
+
+This is a new kind of for
+recorre cada elemento temporal en la clase iterable, pues solo tenemos una variable de tipo T
+for(T tmp : this){
+}
+
+NO podemos usar un foreach si la clase no es iterable
+hace lo mismo que los iteradores, es azucar sintáctica, java lo entiendo igual que si lo hicierámos con los iteradores.
+
+
+El método compareto hace la diferencia del primer elemento menos el que se envía como parámetro y luego se pregunta si la diferencia que arroja es el final, depende de quien sea el mas grande
+

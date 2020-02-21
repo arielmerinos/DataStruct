@@ -8,32 +8,52 @@ import java.util.Iterator;
  */
 public class Conjunto<T> implements Iterable<T> {
 
-    public Iterator iterator() {
+    /**
+     * Metodo usado para construir objetos de tipo iterador
+     * @return Nuevo iterador con nuestras modifiaciones en la clase privada
+     */
+    public Iterator<T> iterator() {
         return new Iterador();
     }
 
-    private class Iterador implements Iterator {
+    /**
+     * Permite el correcto manejro de los iteradores
+     * @param <T> tipo sobre los cuales va a iterar
+     */
+    private class Iterador<T> implements Iterator {
         private int posicion;
 
+        /**
+         * Constructor por omision
+         */
         public Iterador() {
             posicion = 0;
         }
 
+        @Override
         public boolean hasNext() {
             return posicion < cardinal;
         }
 
-        public Object next() {
-            return items[posicion++];
+        @Override
+        public T next() {
+            return (T) items[posicion++];
         }
 
+        @Override
         public void remove() {
 
         }
 
     }
 
+    /**
+     * Arreglo que guardara los elementos del conjunto
+     */
     private T[] items;
+    /**
+     * Varible contador que servira para conocer el numero de elementos en un conjunto
+     */
     private int cardinal;
 
     /**
@@ -68,6 +88,10 @@ public class Conjunto<T> implements Iterable<T> {
         }
     }
 
+    /**
+     * Agrega elementos al conjunto si es que aun no existian
+     * @param item elemento candidato a ser añadido
+     */
     public void addItem(T item) {
         if (!contains(item)) {
             if (items.length < cardinal) {
@@ -82,6 +106,10 @@ public class Conjunto<T> implements Iterable<T> {
         }
     }
 
+    /**
+     * Elimina un elemento del conjunto, en caso de no encontrarlo terminara el metodo
+     * @param item elemento que sera eliminado
+     */
     public void eraseItem(T item) {
         for (int i = 0; i < cardinal; i++) {
             if (item.equals(items[i])) {
@@ -94,7 +122,11 @@ public class Conjunto<T> implements Iterable<T> {
         }
     }
 
-
+    /**
+     * Busca un elemento en el conjunto
+     * @param item elemento que buscara en el conjunto
+     * @return Verdadero si lo ha encontrado, falso en otro caso.
+     */
     public boolean contains(T item) {
         for (int i = 0; i < cardinal; i++) {
             if (items[i].equals(item)) return true;
@@ -102,23 +134,36 @@ public class Conjunto<T> implements Iterable<T> {
         return false;
     }
 
+    /**
+     * Verifica si tiene elementos un conjunto
+     * @return si el conjunto tiene o no elementos
+     */
     public boolean isEmpty() {
-        for (int i = 0; i < cardinal; i++) {
-            if (items[i] != null) return false;
-        }
-        return true;
+        return cardinal > 0 ? true: false;
     }
 
+    /**
+     * Permite acceder al cardinal del conjunto
+     * @return el tamaño del conjunto (cuantos elemetnos tiene)
+     */
     public int size() {
         return cardinal;
     }
 
+    /**
+     * Vacia completamente el conjunto para dejarlo sin elementos
+     */
     public void throwAll() {
         for (int i = 0; i < cardinal; i++) {
             items[i] = null;
         }
     }
 
+    /**
+     * Permite unir dos conjuntos, hacer que los elementos de ambos esten en un nuevo conjnto
+     * @param conjunto1 Conjunto con el cual se hara la conjuncion
+     * @return nuevo conjunto con elementos de ambos conjuntos
+     */
     public Conjunto<T> union(Conjuntable<T> conjunto1) {
         Conjunto<T> union = new Conjunto<>(cardinal + conjunto1.size());
         for (T elem : conjunto1) {
@@ -134,14 +179,27 @@ public class Conjunto<T> implements Iterable<T> {
         return union;
     }
 
+    /**
+     * Permite realizar la interseccion de dos conjuntos
+     * @return elementos que estan en un conjunto y estan en el segundo
+     */
     public Conjunto<T> intersection() {
         return null;
     }
 
+    /**
+     * Realiza la diferencia entre dos conjuntos
+     * @return Nuevo cnjunto que contiene los elementos que se encontraron en el primer conjunto y no en el segundo
+     */
     public Conjunto<T> diff() {
         return null;
     }
 
+    /**
+     * Verifica si un conjunto dado es subconjnto de otro
+     * @param conjunto conjunto que se validara como subconjunto del que fue aplicado el metodo
+     * @return verdadero en caso de que todos los elementos del conjunto dado esten en el segundo, en el caso contrario falso
+     */
     public boolean subSet(Conjunto<T> conjunto) {
         if (conjunto.size() <= cardinal) {
             for (T elemento : conjunto) {

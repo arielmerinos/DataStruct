@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a98cab8e-dc94-43dd-98cb-2788f289e4c1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Swing/src/MenuInterfaz.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Swing/src/MenuInterfaz.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Conjuntable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Conjuntable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Conjunto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Conjunto.java" afterDir="false" />
-    </list>
+    <list default="true" id="a98cab8e-dc94-43dd-98cb-2788f289e4c1" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,5 +27,11 @@
       <updated>1581450350884</updated>
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="490" y="68" width="376" height="580" key="#com.intellij.ide.util.MemberChooser" timestamp="1582290730904">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="490" y="68" width="376" height="580" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1582290730904" />
   </component>
 </project>

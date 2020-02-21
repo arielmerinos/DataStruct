@@ -6,48 +6,50 @@ import java.util.Iterator;
  * @author Ariel Merino Peña 317031326
  * @version 1
  */
-public class Conjunto implements Conjuntable, Iterable{
+public class Conjunto<T> implements Iterable<T> {
 
-    public Iterator iterator(){
+    public Iterator iterator() {
         return new Iterador();
     }
 
-    private class Iterador implements Iterator{
+    private class Iterador implements Iterator {
         private int posicion;
-        
-        public Iterador(){
+
+        public Iterador() {
             posicion = 0;
         }
 
-        public boolean hasNext(){
+        public boolean hasNext() {
             return posicion < cardinal;
         }
 
-        public Object next(){
+        public Object next() {
             return items[posicion++];
         }
 
-        public void remove(){
+        public void remove() {
 
         }
 
     }
-    private Object[] items;
+
+    private T[] items;
     private int cardinal;
 
     /**
      * Constructor por omision
      */
-    public Conjunto(){
+    public Conjunto() {
         this(2);
     }
 
     /**
      * Constructor que sirve para construir un conjunto de un tamaño dado
+     *
      * @param size tamaño del arreglo
      */
-    public Conjunto(int size){
-        items = new Object[size <= 0 ? 20 : size];
+    public Conjunto(int size) {
+        items = (T[]) new Object[size <= 0 ? 20 : size];
         cardinal = 0;
         for (int i = 0; i < size; i++) {
             items[i] = null;
@@ -56,88 +58,98 @@ public class Conjunto implements Conjuntable, Iterable{
 
     /**
      * Constructor que hace una copia de otro conjunto
+     *
      * @param conjunto Conjunto que sera copiado
      */
-    public Conjunto(Conjunto conjunto){
-        items = new Object[conjunto.items.length];
-        for (int i = 0; i < conjunto.items.length ; i++) {
-            items[i] = conjunto.items[i];
+    public Conjunto(Conjunto conjunto) {
+        items = (T[]) new Object[conjunto.items.length];
+        for (int i = 0; i < conjunto.items.length; i++) {
+            items[i] = (T) conjunto.items[i];
         }
     }
 
-    @Override
-    public void addItem(Object item) {
-        if(!contains(item)){
-            items[cardinal] = item;
-        }
-    }
-
-    @Override
-    public void eraseItem(Object item) {
-        if (!isEmpty()){
-            for (int i = 0; i < cardinal; i++) {
-                if (item.equals(items[i])){
-                    items[i] = null;
-                    return;
+    public void addItem(T item) {
+        if (!contains(item)) {
+            if (items.length < cardinal) {
+                T[] aux = (T[]) new Object[cardinal + 2];
+                for (int i = 0; i < cardinal; i++) {
+                    aux[i] = items[i];
                 }
+                items = aux;
+            }
+            items[cardinal] = item;
+            cardinal++;
+        }
+    }
+
+    public void eraseItem(T item) {
+        for (int i = 0; i < cardinal; i++) {
+            if (item.equals(items[i])) {
+                for (int j = i; j < cardinal - 1; j++) {
+                    items[j] = items[j + 1];
+                }
+                cardinal--;
+                return;
             }
         }
     }
 
-    @Override
-    public boolean contains(Object item) {
-        if (!isEmpty()){
-            for (int i = 0; i < cardinal ; i++) {
-                if (items[i].equals(item)) return true;
-            }
+
+    public boolean contains(T item) {
+        for (int i = 0; i < cardinal; i++) {
+            if (items[i].equals(item)) return true;
         }
         return false;
     }
 
-    @Override
     public boolean isEmpty() {
-        for (int i = 0; i < cardinal ; i++) {
-            if(items[i] != null) return false;
+        for (int i = 0; i < cardinal; i++) {
+            if (items[i] != null) return false;
         }
         return true;
     }
 
-    @Override
     public int size() {
         return cardinal;
     }
 
-    @Override
     public void throwAll() {
-        for (int i = 0; i < cardinal ; i++) {
+        for (int i = 0; i < cardinal; i++) {
             items[i] = null;
         }
     }
 
-    @Override
-    public Conjuntable union(Conjuntable conjunto1) {
+    public Conjunto<T> union(Conjuntable<T> conjunto1) {
+        Conjunto<T> union = new Conjunto<>(cardinal + conjunto1.size());
+        for (T elem : conjunto1) {
+            if(!union.contains(elem)){
+                union.addItem(elem);
+            }
+        }
+        for (T elem : this) {
+            if(!union.contains(elem)){
+                union.addItem(elem);
+            }
+        }
+        return union;
+    }
 
+    public Conjunto<T> intersection() {
         return null;
     }
 
-    @Override
-    public Conjuntable intersection() {
+    public Conjunto<T> diff() {
         return null;
     }
 
-    @Override
-    public Conjuntable diff() {
-        return null;
-    }
-
-    @Override
-    public boolean subSet(Conjuntable conjunto) {
-        if (conjunto.size() <= cardinal){
-            for (int i = 0; i < conjunto.size() ; i++) {
-                if (contains(items[i])){
-
+    public boolean subSet(Conjunto<T> conjunto) {
+        if (conjunto.size() <= cardinal) {
+            for (T elemento : conjunto) {
+                if (!contains(elemento)) {
+                    return false;
                 }
             }
+            return true;
         }
         return false;
     }

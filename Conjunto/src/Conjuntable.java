@@ -1,13 +1,15 @@
 
-public interface Conjuntable {
-    public void addItem(Object item);
-    public void eraseItem(Object item);
-    public boolean contains(Object item);
+public interface Conjuntable<T> extends Iterable<T> {
+
+    void addItem(T item);
+    public void eraseItem(T item);
+    public boolean contains(T item);
     public boolean isEmpty();
     public int size();
     public void throwAll();
-    public Conjuntable union(Conjuntable conjunto1);
+    public Conjuntable<T> union(Conjuntable<T> conjunto1);
     public Conjuntable intersection();
     public Conjuntable diff();
-    public boolean subSet(Conjuntable conjunto);
+    public boolean subSet(Conjuntable<T> conjunto);
+
 }

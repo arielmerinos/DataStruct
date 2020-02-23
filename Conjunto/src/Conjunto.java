@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -8,19 +9,15 @@ import java.util.Iterator;
  */
 public class Conjunto<T> implements Iterable<T> {
 
-    /**
-     * Metodo usado para construir objetos de tipo iterador
-     * @return Nuevo iterador con nuestras modifiaciones en la clase privada
-     */
-    public Iterator<T> iterator() {
+    @Override
+    public java.util.Iterator<T> iterator() {
         return new Iterador();
     }
-
     /**
      * Permite el correcto manejro de los iteradores
      * @param <T> tipo sobre los cuales va a iterar
      */
-    private class Iterador<T> implements Iterator {
+    private class Iterador<T> implements Iterator<T> {
         private int posicion;
 
         /**
@@ -60,7 +57,7 @@ public class Conjunto<T> implements Iterable<T> {
      * Constructor por omision
      */
     public Conjunto() {
-        this(2);
+        this(1);
     }
 
     /**
@@ -84,7 +81,7 @@ public class Conjunto<T> implements Iterable<T> {
     public Conjunto(Conjunto conjunto) {
         items = (T[]) new Object[conjunto.items.length];
         for (int i = 0; i < conjunto.items.length; i++) {
-            items[i] = (T) conjunto.items[i];
+            this.items[i] = (T) conjunto.items[i];
         }
     }
 
@@ -94,7 +91,7 @@ public class Conjunto<T> implements Iterable<T> {
      */
     public void addItem(T item) {
         if (!contains(item)) {
-            if (items.length < cardinal) {
+            if (items.length <= cardinal) {
                 T[] aux = (T[]) new Object[cardinal + 2];
                 for (int i = 0; i < cardinal; i++) {
                     aux[i] = items[i];
@@ -154,9 +151,7 @@ public class Conjunto<T> implements Iterable<T> {
      * Vacia completamente el conjunto para dejarlo sin elementos
      */
     public void throwAll() {
-        for (int i = 0; i < cardinal; i++) {
-            items[i] = null;
-        }
+        cardinal = 0;
     }
 
     /**
@@ -164,7 +159,7 @@ public class Conjunto<T> implements Iterable<T> {
      * @param conjunto1 Conjunto con el cual se hara la conjuncion
      * @return nuevo conjunto con elementos de ambos conjuntos
      */
-    public Conjunto<T> union(Conjuntable<T> conjunto1) {
+    public Conjunto<T> union(Conjunto<T> conjunto1) {
         Conjunto<T> union = new Conjunto<>(cardinal + conjunto1.size());
         for (T elem : conjunto1) {
             if(!union.contains(elem)){
@@ -183,16 +178,41 @@ public class Conjunto<T> implements Iterable<T> {
      * Permite realizar la interseccion de dos conjuntos
      * @return elementos que estan en un conjunto y estan en el segundo
      */
-    public Conjunto<T> intersection() {
-        return null;
+    public Conjunto<T> intersection(Conjunto<T> conjunto) {
+
+        Conjunto intersectionSet = new Conjunto(conjunto.size());
+
+        Iterator it = iterator();
+        while (it.hasNext()) {
+            T elemento = (T) it.next();
+            if (conjunto.contains(elemento)){
+                intersectionSet.addItem(elemento);
+            }
+        }
+        return intersectionSet;
     }
 
     /**
      * Realiza la diferencia entre dos conjuntos
      * @return Nuevo cnjunto que contiene los elementos que se encontraron en el primer conjunto y no en el segundo
      */
-    public Conjunto<T> diff() {
-        return null;
+    public Conjunto<T> diff(Conjunto<T> conjunto) {
+        Conjunto diferentialSet = new Conjunto(conjunto.size());
+        Iterator it = iterator();
+
+        while (it.hasNext()) {
+            T elemento = (T) it.next();
+            if (!conjunto.contains(elemento))
+                diferentialSet.addItem(elemento);
+        }
+        return diferentialSet;
+    }
+
+    public Conjunto<T> simetricDiff(Conjunto<T> conjuntoP){
+        Conjunto primeraParte = conjuntoP.diff(this);
+        Conjunto segundaParte = this.diff(conjuntoP);
+        Conjunto result = primeraParte.union(segundaParte);
+        return result;
     }
 
     /**
@@ -210,5 +230,20 @@ public class Conjunto<T> implements Iterable<T> {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        Iterador it = new Iterador();
+        StringBuilder std = new StringBuilder();
+
+        while (it.hasNext()){
+            std.append(it.next() + ", ");
+        }
+        String result = "";
+        if (std.length() > 1){
+            result = std.substring(0,std.length() - 2);
+        }
+        return "{" + result + "}";
     }
 }

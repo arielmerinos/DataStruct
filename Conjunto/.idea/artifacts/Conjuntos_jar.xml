@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Conjuntos:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Conjuntos_jar</output-path>
+    <root id="archive" name="Conjuntos.jar">
+      <element id="module-output" name="Conjuntos" />
+    </root>
+  </artifact>
+</component>

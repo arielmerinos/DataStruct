@@ -132,6 +132,56 @@ public class ListaDL<T> implements Listable<T>{
         }
         return null;
     }
+
+    public <T extends Comparable<T>> ListaDL<T> merge(ListaDL<T> l1, ListaDL l2){
+
+        ListaDL<T> merge = new ListaDL<>();
+        Nodo auxL1 = (ListaDL.Nodo) l1.head;
+        Nodo auxL2 = l2.head;
+
+        while (auxL1 != null && auxL2 != null){
+            if (auxL1.elemento.compareTo(auxL2.elemento) <= 0){
+                merge.push((T) auxL1.elemento);
+                auxL1 = auxL1.next;
+            }else{
+                merge.push((T) auxL2.elemento);
+                auxL2 = auxL2.next;
+            }
+        }
+        if (auxL1 != null){
+            while (auxL1 != null){
+                merge.push((T) auxL1.elemento);
+                auxL1 = auxL1.next;
+            }
+        }else{
+            while (auxL2 != null){
+                merge.push((T) auxL2.elemento);
+                auxL2 = auxL2.next;
+            }
+        }
+        return merge;
+    }
+
+    public <T extends Comparable<T>> ListaDL<T> merge(ListaDL<T> l){
+        if (l.elements == 1 || l.elements == 0){
+            return l;
+        }else {
+            int n = l.elements / 2;
+            int i = 0;
+            ListaDL<T> lCopia = new ListaDL<>();
+            while (i < n) {
+                /**
+                 * aqui se dividen entre dos las listas
+                 * ese metodo lo va a envair en la practica
+                 */
+                lCopia.push(l.eliminaPrimero());
+            }
+            ListaDL<T> mergeList1 = merge(lCopia);
+            ListaDL<T> mergeList2 = merge(l);
+            return merge(mergeList1, mergeList2);
+        }
+    }
+
 }
 
 

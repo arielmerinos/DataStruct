@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class ListaDL<T> implements Listable<T>{
     /**
      * Primer elemento de la lista
@@ -11,6 +13,51 @@ public class ListaDL<T> implements Listable<T>{
      * Cardinalidad de la lista
      */
     private int elements;
+
+    public class Iterador<T> implements java.util.Iterator<T>{
+
+        Nodo siguiente;
+
+        public Iterador(){
+            siguiente = head;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return siguiente != null;
+        }
+
+        /**
+         * Constructor copia,
+         * reversa de una lista
+         * metodo de copiar una lista
+         * @return
+         * vamos a ver Merge Sort
+         * dadas dos listas ordenadas comparar las cabezas de las listas
+         * eliminar el que sea mas pequeño y volver a comparar
+         *  Dividir todo entere dos has que tengamos una lista de un solo elemento
+         *
+         */
+        @Override
+        public T next() {
+            if (hasNext()){
+                /**
+                 * El codigo de luis es
+                 * T elem = sigiente.elemento;
+                 * siguiente = siguiente.siguiente;
+                 * return elem;
+                 */
+                siguiente = siguiente.next;
+                return (T) siguiente.prev.elemento;
+            }
+            return null;
+        }
+
+        @Override
+        public void remove() {
+
+        }
+    }
 
     @Override
     public void push(T elem) {

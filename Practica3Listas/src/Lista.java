@@ -22,33 +22,30 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
             this.elemento=elemento;
         }
 
-        @Override
-        public boolean equals(Object o) {
-            if (o == null || getClass() != o.getClass()) return false;
-            Nodo nodo = (Nodo) o;
-            return Objects.equals(anterior, nodo.anterior) &&
-                    Objects.equals(siguiente, nodo.siguiente) &&
-                    Objects.equals(elemento, nodo.elemento);
-        }
     }
 
     private class IteradorLista<T> implements Iterator<T>{
         /* La lista a recorrer*/
         /* Elementos del centinela que recorre la lista*/
+
         private Nodo siguiente;
 
         public IteradorLista(){
-            siguiente = cabeza.siguiente;
+            siguiente = cabeza;
         }
         @Override
         public boolean hasNext() {
-            return siguiente.anterior != null;
+            return siguiente != null;
         }
 
         @Override
         public T next() {
+            if(hasNext()){
+                T elemento = (T) siguiente.elemento;
                 siguiente = siguiente.siguiente;
-            return ((T) siguiente.elemento);
+                return elemento;
+            }
+            return null;
         }
 
         @Override
@@ -93,7 +90,7 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         if (elemento == null){
             return;
         }
-        agregarAlFinal(elemento);
+        agregarAlInicio(elemento);
     }
     /**
      * Método para agregar al inicio un elemento a la lista.
@@ -105,7 +102,7 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         }
         Nodo e = new Nodo(elemento);
         if (esVacia()){
-            agregarAlInicio(elemento);
+            agregarAlFinal(elemento);
         } else {
             cabeza.anterior = e;
             e.siguiente = cabeza;
@@ -154,21 +151,39 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         Iterator i = iterator();
         while (i.hasNext()){
             if (i.next().equals(elemento)){
+                System.out.println(elemento);
                 if (longitud == 1){
                     vaciar();
-                }else if (i.next().equals(cabeza)){
+                }else if (cabeza.elemento.equals(i.next())){
+                    System.out.println("Caso donde es la cabeza");
                     cabeza.siguiente = cabeza.siguiente.siguiente;
                     cabeza.anterior = null;
                     cabeza = cabeza.siguiente;
-                } else if (i.next().equals(cola)){
+                } else if (cola.elemento.equals(i.next())){
+                    System.out.println("Caso donde es la cola");
                     cola.anterior = cola.anterior.anterior;
                     cola.siguiente = null;
                     cola = cola.anterior;
                 }else {
-                    i.next();
+                    System.out.println("Caso donde no es ni cabeza ni cola");
+                    Nodo eliminar = search(elemento, cabeza);
+                    System.out.println(eliminar.equals(cola.elemento) ? "Es la cola": "No es la cola");
+                     eliminar.anterior.siguiente = eliminar.siguiente;
+                     eliminar.siguiente.anterior = eliminar.anterior;
                 }
             }
         }
+    }
+
+    private Nodo search(T element, Nodo pivote){
+        while (pivote != null){
+            if (pivote.elemento.equals(element)){
+                return pivote;
+            }else {
+                pivote = pivote.siguiente;
+            }
+        }
+        return null;
     }
 
     /**
@@ -213,10 +228,6 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
      * @param o objeto a comparar con la lista.
      * @return <code>true</code> si son iguales, <code>false</code> en otro caso.
      */
-    @Override
-    public boolean equals(Object o){
-        return false;
-    }
 
     /**
      * Método que devuelve un iterador sobre la lista
@@ -243,8 +254,12 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         Iterator it = iterator();
         StringBuilder sb = new StringBuilder();
         while (it.hasNext()){
-            sb.append(it.next().toString());
+            sb.append(it.next().toString() + ", ");
         }
-        return sb.toString();
+        String result = "";
+        if (sb.length() > 1){
+            result = sb.substring(0,sb.length() - 2);
+        }
+        return "[" + result + "]";
     }
 }

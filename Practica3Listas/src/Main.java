@@ -9,6 +9,8 @@ public class Main {
         list.agregar("Mundo");
         list.agregar("Mundo");
         System.out.println(list);
+        list.eliminar("Hola");
+        System.out.println(list);
     }
 
 }

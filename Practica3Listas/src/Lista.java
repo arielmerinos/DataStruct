@@ -1,0 +1,250 @@
+import java.util.Iterator;
+import java.util.Objects;
+
+/**
+ * <p> Clase concreta para modelar la estructura de datos Lista</p>
+ * <p>Esta clase implementa una Lista genérica, es decir que es homogénea pero
+ * puede tener elementos de cualquier tipo.
+ * @author Alejandro Hernández Mora <alejandrohmora@ciencias.unam.mx>
+ * @version 1.0
+ */
+public class Lista<T> implements Listable<T>, Iterable<T>{
+
+    /* Clase interna para construir la estructura */
+    private class Nodo{
+        /* Referencias a los nodos anterior y siguiente */
+        public Nodo anterior, siguiente;
+        /* El elemento que almacena un nodo */
+        public T elemento;
+
+        /* Unico constructor de la clase */
+        public Nodo(T elemento){
+            this.elemento=elemento;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == null || getClass() != o.getClass()) return false;
+            Nodo nodo = (Nodo) o;
+            return Objects.equals(anterior, nodo.anterior) &&
+                    Objects.equals(siguiente, nodo.siguiente) &&
+                    Objects.equals(elemento, nodo.elemento);
+        }
+    }
+
+    private class IteradorLista<T> implements Iterator<T>{
+        /* La lista a recorrer*/
+        /* Elementos del centinela que recorre la lista*/
+        private Nodo siguiente;
+
+        public IteradorLista(){
+            siguiente = cabeza.siguiente;
+        }
+        @Override
+        public boolean hasNext() {
+            return siguiente.anterior != null;
+        }
+
+        @Override
+        public T next() {
+                siguiente = siguiente.siguiente;
+            return ((T) siguiente.elemento);
+        }
+
+        @Override
+        public void remove() {
+            Iterator.super.remove(); //To change body of generated methods, choose Tools | Templates.
+        }
+    }
+
+    /* Atributos de la lista */
+    private Nodo cabeza, cola;
+    private int longitud;
+
+    /**
+     * Método que nos dice si las lista está vacía.
+     * @return <code>true</code> si el conjunto está vacío, <code>false</code>
+     * en otro caso.
+     */
+    public boolean esVacia(){
+        return longitud == 0;
+
+    }
+    /**
+     * Método para eliminar todos los elementos de una lista
+     */
+    public void vaciar(){
+        cabeza = cola = null;
+        longitud = 0;
+    }
+    /**
+     * Método para obtener el tamaño de la lista
+     * @return tamanio Número de elementos de la lista.
+     **/
+    public int longitud(){
+        return longitud;
+    }
+    /**
+     * Método para agregar un elemento a la lista.
+     * @param elemento Objeto que se agregará a la lista.
+     */
+    @Override
+    public void agregar(T elemento){
+        if (elemento == null){
+            return;
+        }
+        agregarAlFinal(elemento);
+    }
+    /**
+     * Método para agregar al inicio un elemento a la lista.
+     * @param elemento Objeto que se agregará al inicio de la lista.
+     */
+    public void agregarAlInicio(T elemento){
+        if (elemento == null){
+            return;
+        }
+        Nodo e = new Nodo(elemento);
+        if (esVacia()){
+            agregarAlInicio(elemento);
+        } else {
+            cabeza.anterior = e;
+            e.siguiente = cabeza;
+            cabeza = e;
+            longitud++;
+        }
+
+    }
+    /**
+     * Método para agregar al final un elemento a la lista.
+     * @param elemento Objeto que se agregará al inicio de la lista.
+     */
+    public void agregarAlFinal(T elemento){
+        if (elemento == null)
+            return;
+        Nodo e = new Nodo(elemento);
+        if (esVacia()){
+            cabeza = cola = e;
+        }else {
+            cola.siguiente = e;
+            e.anterior = cola;
+            cola = e;
+        }
+        longitud++;
+    }
+    /**
+     * Método para verificar si un elemento pertenece a la lista.
+     * @param elemento Objeto que se va a buscar en la lista.
+     * @return <code>true</code> si el elemento esta en el lista y false en otro caso.
+     */
+    public boolean contiene(T elemento){
+        Iterator i = iterator();
+        while (i.hasNext()){
+            if (i.next().equals(elemento))
+                return true;
+        }
+        return false;
+    }
+    /**
+     * Método para eliminar un elemento de la lista.
+     * @param elemento Objeto que se eliminara de la lista.
+     */
+    public void eliminar(T elemento){
+        if (!contiene(elemento))
+            return;
+        Iterator i = iterator();
+        while (i.hasNext()){
+            if (i.next().equals(elemento)){
+                if (longitud == 1){
+                    vaciar();
+                }else if (i.next().equals(cabeza)){
+                    cabeza.siguiente = cabeza.siguiente.siguiente;
+                    cabeza.anterior = null;
+                    cabeza = cabeza.siguiente;
+                } else if (i.next().equals(cola)){
+                    cola.anterior = cola.anterior.anterior;
+                    cola.siguiente = null;
+                    cola = cola.anterior;
+                }else {
+                    i.next();
+                }
+            }
+        }
+    }
+
+    /**
+     * Método que devuelve la posición en la lista que tiene la primera
+     * aparición del <code> elemento</code>.
+     * @param elemento El elemnto del cuál queremos saber su posición.
+     * @return i la posición del elemento en la lista, -1, si no se encuentra en ésta.
+     */
+    public int indiceDe(T elemento){
+        return 0;
+    }
+
+    /**
+     * Método que nos dice en qué posición está un elemento en la lista
+     * @param i La posición cuyo elemento deseamos conocer.
+     * @return <code> elemento </code> El elemento que contiene la lista,
+     * <code>null</code> si no se encuentra
+     * @throws IndexOutOfBoundsException Si el índice es < 0 o >longitud()
+     */
+    public T getElemento(int i)throws IndexOutOfBoundsException{
+        return null;
+    }
+
+    /**
+     * Método que devuelve una copia de la lista, pero en orden inverso
+     * @return Una copia con la lista l revés.
+     */
+    public Lista<T> reversa(){
+        return null;
+    }
+
+    /**
+     * Método que devuelve una copi exacta de la lista
+     * @return la copia de la lista.
+     */
+    public Lista<T> copia(){
+        return null;
+    }
+
+    /**
+     * Método que nos dice si una lista es igual que otra.
+     * @param o objeto a comparar con la lista.
+     * @return <code>true</code> si son iguales, <code>false</code> en otro caso.
+     */
+    @Override
+    public boolean equals(Object o){
+        return false;
+    }
+
+    /**
+     * Método que devuelve un iterador sobre la lista
+     * @return java.util.Iterador -- iterador sobre la lista
+     */
+    @Override
+    public java.util.Iterator<T> iterator(){
+        return new IteradorLista();
+    }
+
+    /**
+     * Método que devuelve una copia de la lista.
+     * @param <T> Debe ser un tipo que extienda Comparable, para poder distinguir
+     * el orden de los elementos en la lista.
+     * @param l La lista de elementos comparables.
+     * @return copia de la lista ordenada.
+     */
+    public static <T extends Comparable<T>> Lista <T> mergesort(Lista<T>l){
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        Iterator it = iterator();
+        StringBuilder sb = new StringBuilder();
+        while (it.hasNext()){
+            sb.append(it.next().toString());
+        }
+        return sb.toString();
+    }
+}

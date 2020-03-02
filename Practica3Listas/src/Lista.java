@@ -149,30 +149,7 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         if (!contiene(elemento))
             return;
         Iterator i = iterator();
-        while (i.hasNext()){
-            if (i.next().equals(elemento)){
-                System.out.println(elemento);
-                if (longitud == 1){
-                    vaciar();
-                }else if (cabeza.elemento.equals(i.next())){
-                    System.out.println("Caso donde es la cabeza");
-                    cabeza.siguiente = cabeza.siguiente.siguiente;
-                    cabeza.anterior = null;
-                    cabeza = cabeza.siguiente;
-                } else if (cola.elemento.equals(i.next())){
-                    System.out.println("Caso donde es la cola");
-                    cola.anterior = cola.anterior.anterior;
-                    cola.siguiente = null;
-                    cola = cola.anterior;
-                }else {
-                    System.out.println("Caso donde no es ni cabeza ni cola");
-                    Nodo eliminar = search(elemento, cabeza);
-                    System.out.println(eliminar.equals(cola.elemento) ? "Es la cola": "No es la cola");
-                     eliminar.anterior.siguiente = eliminar.siguiente;
-                     eliminar.siguiente.anterior = eliminar.anterior;
-                }
-            }
-        }
+
     }
 
     private Nodo search(T element, Nodo pivote){

@@ -22,6 +22,10 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
             this.elemento=elemento;
         }
 
+        @Override
+        public String toString() {
+            return elemento.toString();
+        }
     }
 
     private class IteradorLista<T> implements Iterator<T>{
@@ -52,6 +56,7 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         public void remove() {
             Iterator.super.remove(); //To change body of generated methods, choose Tools | Templates.
         }
+
     }
 
     /* Atributos de la lista */
@@ -90,8 +95,17 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         if (elemento == null){
             return;
         }
-        agregarAlInicio(elemento);
+        agregarAlFinal(elemento);
     }
+
+    public Nodo getCola() {
+        return cola;
+    }
+
+    public Nodo getCabeza() {
+        return cabeza;
+    }
+
     /**
      * Método para agregar al inicio un elemento a la lista.
      * @param elemento Objeto que se agregará al inicio de la lista.
@@ -148,8 +162,19 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
     public void eliminar(T elemento){
         if (!contiene(elemento))
             return;
-        Iterator i = iterator();
-
+        Nodo elimina = search(elemento, cabeza);
+        if (elimina == cabeza){
+            cabeza = cabeza.siguiente;
+            if (cabeza != null){
+                cabeza.anterior = null;
+            }
+        } else if(elimina == cola){
+            cola = cola.anterior;
+            cola.siguiente = null;
+        }else{
+            elimina.anterior.siguiente = elimina.siguiente;
+            elimina.siguiente.anterior = elimina.anterior;
+        }
     }
 
     private Nodo search(T element, Nodo pivote){
@@ -170,7 +195,15 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
      * @return i la posición del elemento en la lista, -1, si no se encuentra en ésta.
      */
     public int indiceDe(T elemento){
-        return 0;
+        if (!contiene(elemento)){
+            return -1;
+        }
+        Iterator it = iterator();
+        int conteo = 1;
+        while (it.hasNext() && !it.next().equals(elemento)){
+            conteo++;
+        }
+        return conteo;
     }
 
     /**
@@ -181,6 +214,16 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
      * @throws IndexOutOfBoundsException Si el índice es < 0 o >longitud()
      */
     public T getElemento(int i)throws IndexOutOfBoundsException{
+        if (i > longitud || i <= 0)
+            throw new IndexOutOfBoundsException("Esta fuera del rango");
+        Iterator it = iterator();
+        int conteo = 0;
+        while (it.hasNext() && i > conteo){
+            conteo++;
+            if (i == conteo){
+                return (T)it.next();
+            }
+        }
         return null;
     }
 

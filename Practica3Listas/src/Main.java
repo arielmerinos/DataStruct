@@ -16,6 +16,11 @@ public class Main {
         System.out.println(list);
         System.out.println(list.indiceDe("nice"));
         System.out.println( "Este es el get elemento" + list.getElemento(2));
+
+
+        list = list.reversa();
+        System.out.println("Esta es la reversa");
+        System.out.println(list);
     }
 
 }

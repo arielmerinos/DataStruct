@@ -235,7 +235,7 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         Lista<T> rev = new Lista<>();
         Iterator it = iterator();
         while (it.hasNext()){
-            rev.agregarAlFinal((T) it.next());
+            rev.agregarAlInicio((T)it.next());
         }
         return rev;
     }
@@ -245,7 +245,9 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
      * @return la copia de la lista.
      */
     public Lista<T> copia(){
-        return this;
+        Lista<T> nueva = new Lista<>();
+        nueva.cabeza = cabeza;
+        return nueva;
     }
 
     /**
@@ -253,6 +255,15 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
      * @param o objeto a comparar con la lista.
      * @return <code>true</code> si son iguales, <code>false</code> en otro caso.
      */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lista<?> lista = (Lista<?>) o;
+        return longitud == lista.longitud &&
+                Objects.equals(cabeza, lista.cabeza) &&
+                Objects.equals(cola, lista.cola);
+    }
 
     /**
      * Método que devuelve un iterador sobre la lista

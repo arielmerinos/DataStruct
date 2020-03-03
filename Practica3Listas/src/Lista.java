@@ -96,15 +96,6 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         }
         agregarAlFinal(elemento);
     }
-    //Metodos completamente mios para probar cosas todo eliminarlos
-
-    public Nodo getCola() {
-        return cola;
-    }
-    //Metodos completamente mios para probar cosas todo eliminarlos
-    public Nodo getCabeza() {
-        return cabeza;
-    }
 
     /**
      * Método para agregar al inicio un elemento a la lista.

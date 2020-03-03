@@ -70,7 +70,6 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
      */
     public boolean esVacia(){
         return longitud == 0;
-
     }
     /**
      * Método para eliminar todos los elementos de una lista
@@ -97,11 +96,12 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         }
         agregarAlFinal(elemento);
     }
+    //Metodos completamente mios para probar cosas todo eliminarlos
 
     public Nodo getCola() {
         return cola;
     }
-
+    //Metodos completamente mios para probar cosas todo eliminarlos
     public Nodo getCabeza() {
         return cabeza;
     }
@@ -232,7 +232,12 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
      * @return Una copia con la lista l revés.
      */
     public Lista<T> reversa(){
-        return null;
+        Lista<T> rev = new Lista<>();
+        Iterator it = iterator();
+        while (it.hasNext()){
+            rev.agregarAlFinal((T) it.next());
+        }
+        return rev;
     }
 
     /**
@@ -240,7 +245,7 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
      * @return la copia de la lista.
      */
     public Lista<T> copia(){
-        return null;
+        return this;
     }
 
     /**

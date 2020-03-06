@@ -314,11 +314,33 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
      * @param l La lista de elementos comparables.
      * @return copia de la lista ordenada.
      */
-    public static <T extends Comparable<T>> Lista <T> mergesort(Lista<T>l){
-        return null;
+    public <T extends Comparable<T>> Lista <T> mergesort(Lista<T> l){
+        if ( l.longitud < 2 ){
+            return l;
+        }
+        int contador = 0;
+        Lista l1 = new Lista();
+        Lista l2 = new Lista();
+        for(T elemento : l){
+            if (contador++ < l.longitud/2){
+                l1.agregarAlFinal(elemento);
+            }
+            else {
+                l2.agregarAlFinal(elemento);
+            }
+        }
+        return mezcla(mergesort(l1), mergesort(l2));
     }
 
-    public static <T extends Comparable<T>> Lista<T> mezcla(Lista<T> l1, Lista<T> l2){
+    public <T extends Comparable<T>> Lista<T> mezcla(Lista<T> l1, Lista<T> l2){
+        Lista<T> l = new Lista<T>();
+        Nodo aux = l1.cabeza;
+        Nodo aux1 = l2.cabeza;
+        while( aux != null && aux1 != null){
+            if (aux.elemento.compareTo()){
+
+            }
+        }
         return null;
     }
 

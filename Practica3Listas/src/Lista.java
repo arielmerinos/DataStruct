@@ -60,7 +60,8 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
     }
 
     /* Atributos de la lista */
-    private Nodo cabeza, cola;
+    private Nodo cabeza;
+    private Nodo cola;
     private int longitud;
 
 
@@ -282,12 +283,19 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Lista<?> lista = (Lista<?>) o;
-        return longitud == lista.longitud &&
-                Objects.equals(cabeza, lista.cabeza) &&
-                Objects.equals(cola, lista.cola);
+        if (!(o instanceof Lista)) return false;
+        Lista<T> l = (Lista<T>) o;
+        if (longitud != l.longitud) return false;
+        Nodo aux = cabeza;
+        Nodo aux1 = l.cabeza;
+        while (aux != null){
+            if (! aux.elemento.equals(aux1.elemento)){
+                return false;
+            }
+            aux = aux.siguiente;
+            aux1 = aux1.siguiente;
+        }
+        return true;
     }
 
     /**
@@ -307,6 +315,10 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
      * @return copia de la lista ordenada.
      */
     public static <T extends Comparable<T>> Lista <T> mergesort(Lista<T>l){
+        return null;
+    }
+
+    public static <T extends Comparable<T>> Lista<T> mezcla(Lista<T> l1, Lista<T> l2){
         return null;
     }
 

@@ -63,6 +63,40 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
     private Nodo cabeza, cola;
     private int longitud;
 
+
+    /**
+     *  Constructor por omisión de la clase, no recibe parámetros.
+     *  Crea una nueva lista con longitud 0.
+     **/
+    public Lista(){
+        longitud =0;
+        cabeza=null;
+        cola=null;
+    }
+
+    /**
+     *  Constructor copia de la clase. Recibe una lista con elementos.
+     *  Crea una nueva lista exactamente igual a la que recibimos como parámetro.
+     **/
+    public Lista( Lista<T> l){
+        Lista<T> nueva = l.copia();
+        this.longitud = nueva.longitud;
+        this.cabeza = nueva.cabeza;
+        this.cola = nueva.cola;
+    }
+
+    /**
+     *  Constructor de la clase que recibe parámetros.
+     *  Crea una nueva lista con los elementos de la estructura iterable que recibe como parámetro.
+     **/
+    public Lista(Iterable<T> iterable){
+        longitud =0;
+        cabeza=null;
+        cola=null;
+        for(T elem: iterable)
+            agregar(elem);
+    }
+
     /**
      * Método que nos dice si las lista está vacía.
      * @return <code>true</code> si el conjunto está vacío, <code>false</code>

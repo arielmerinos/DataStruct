@@ -64,15 +64,13 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
     private Nodo cola;
     private int longitud;
 
-
     /**
      *  Constructor por omisión de la clase, no recibe parámetros.
      *  Crea una nueva lista con longitud 0.
      **/
     public Lista(){
         longitud =0;
-        cabeza=null;
-        cola=null;
+        cabeza = cola = null;
     }
 
     /**
@@ -91,9 +89,8 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
      *  Crea una nueva lista con los elementos de la estructura iterable que recibe como parámetro.
      **/
     public Lista(Iterable<T> iterable){
-        longitud =0;
-        cabeza=null;
-        cola=null;
+        longitud = 0;
+        cabeza = cola = null;
         for(T elem: iterable)
             agregar(elem);
     }

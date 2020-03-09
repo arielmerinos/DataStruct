@@ -334,14 +334,24 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
 
     public <T extends Comparable<T>> Lista<T> mezcla(Lista<T> l1, Lista<T> l2){
         Lista<T> l = new Lista<T>();
-        Nodo aux = l1.cabeza;
-        Nodo aux1 = l2.cabeza;
-        while( aux != null && aux1 != null){
-            if (aux.elemento.compareTo()){
-
+        while( l1.cabeza != null && l2.cabeza != null) {
+            if (l1.cabeza.elemento.compareTo(l2.cabeza.elemento) < 0) {
+                l.agregarAlFinal(l1.cabeza.elemento);
+                l1.cabeza = l1.cabeza.siguiente;
+            } else {
+                l.agregarAlFinal(l2.cabeza.elemento);
+                l2.cabeza = l2.cabeza.siguiente;
             }
         }
-        return null;
+        while(l1.cabeza != null){
+            l.agregarAlFinal(l1.cabeza.elemento);
+            l1.cabeza = l1.cabeza.siguiente;
+        }
+        while (l2.cabeza != null){
+            l.agregarAlFinal(l2.cabeza.elemento);
+            l2.cabeza = l2.cabeza.siguiente;
+        }
+        return l;
     }
 
     @Override

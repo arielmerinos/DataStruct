@@ -1,11 +1,9 @@
 import java.util.Iterator;
-import java.util.Objects;
-
 /**
  * <p> Clase concreta para modelar la estructura de datos Lista</p>
  * <p>Esta clase implementa una Lista genérica, es decir que es homogénea pero
  * puede tener elementos de cualquier tipo.
- * @author Alejandro Hernández Mora <alejandrohmora@ciencias.unam.mx>
+ * @author Kevin Ariel Merino Peña 317031326
  * @version 1.0
  */
 public class Lista<T> implements Listable<T>, Iterable<T>{
@@ -200,6 +198,12 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         }
     }
 
+    /**
+     * Metodo para buscar un nodo en una lista
+     * @param element Elemento a buscar
+     * @param pivote Desde donde se va a empezar la busqueda
+     * @return Nodo encontrado
+     */
     private Nodo search(T element, Nodo pivote){
         while (pivote != null){
             if (pivote.elemento.equals(element)){
@@ -329,8 +333,17 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         return mezcla(mergesort(l1), mergesort(l2));
     }
 
+    /**
+     * Hace la union ordenada de la lista cuando ya se ha pasado por el metodo principal MergeSort
+     * Funciona como un auxiliar recursivo para dicha funcion
+     * @param l1 Primera lista que sera comparada
+     * @param l2 Segunda lista para comparar
+     * @param <T> Generico que debe heredar de tipo comparable para poder ordenar
+     * @return Lista ordenada
+     */
     public <T extends Comparable<T>> Lista<T> mezcla(Lista<T> l1, Lista<T> l2){
         Lista<T> l = new Lista<T>();
+        Lista<T>.Nodo aux = l1.cabeza;
         while( l1.cabeza != null && l2.cabeza != null) {
             if (l1.cabeza.elemento.compareTo(l2.cabeza.elemento) < 0) {
                 l.agregarAlFinal(l1.cabeza.elemento);

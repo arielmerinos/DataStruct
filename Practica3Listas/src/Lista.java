@@ -27,8 +27,6 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
     }
 
     private class IteradorLista<T> implements Iterator<T>{
-        /* La lista a recorrer*/
-        /* Elementos del centinela que recorre la lista*/
 
         private Nodo siguiente;
 

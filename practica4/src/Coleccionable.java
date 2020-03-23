@@ -38,7 +38,7 @@ public interface Coleccionable<T> extends Iterable<T> {
      */
     public boolean contiene(T elemento);
 
-    /**
+    /**z
      * Nos dice si el conjunto de elementos en la colección es vacío.
      * @return <code>true</code> si el conjunto de elementos en la colección es
      *         vacío, <code>false</code> en otro caso.

@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
  * <p> Clase concreta para modelar la estructura de datos Cola</p>
  * <p>Esta clase implementa una Cola genérica, es decir que es homogénea pero
  * puede tener elementos de cualquier tipo.
- * @author Alejandro Hernández Mora <alejandrohmora@ciencias.unam.mx>
+ * @author Kevin Ariel Merino Peña <arielmerino@ciencias.unam.mx>
  * @version 1.0
  * @param <T> Tipo que tienen los objetos que guarda esta cola.
  */
@@ -37,24 +37,26 @@ public class Cola<T> implements Coleccionable<T> {
         public Nodo siguiente;
 
         public IteradorCola() {
-            //Aqui va tu codigo
+            siguiente = inicio;
         }
 
         /* Nos dice si hay un elemento siguiente. */
         @Override
         public boolean hasNext() {
-            return false;
+            return siguiente != null;
         }
 
         /* Nos da el elemento siguiente. */
         @Override
         public T next() {
-            return null;
+            T aux = siguiente.elemento;
+            siguiente = siguiente.siguiente;
+            return aux;
         }
 
         @Override
         public void remove() {
-            //Aqui va tu codigo
+            throw new UnsupportedOperationException("No implementado");
         }
 
     }
@@ -82,7 +84,9 @@ public class Cola<T> implements Coleccionable<T> {
      * @param elementos El arreglo que se recibe como parámetro.
      */
     public Cola(T[] elementos) {
-        //Aqui va tu codigo
+        for (T elem: elementos){
+            this.agrega(elem);
+        }
     }
 
 
@@ -93,7 +97,9 @@ public class Cola<T> implements Coleccionable<T> {
      * @param elementos La colección de elementos a agregar.
      */
     public Cola(Coleccionable<T> elementos) {
-        //Aqui va tu codigo
+        for (T col : elementos){
+            this.agrega(col);
+        }
     }
 
     /**
@@ -104,7 +110,17 @@ public class Cola<T> implements Coleccionable<T> {
      *                                  <code>null</code>.
      */
     public void queue(T elemento) throws IllegalArgumentException {
-        //Aqui va tu codigo
+        if (elemento == null){
+            throw  new IllegalArgumentException("El elemento enviado es nulo");
+        }
+        Nodo nuevo = new Nodo(elemento);
+        if (esVacio()){
+            inicio = rabo = nuevo;
+        }else {
+            rabo.siguiente = nuevo;
+            rabo = nuevo;
+        }
+        elementos++;
     }
 
     /**
@@ -114,7 +130,13 @@ public class Cola<T> implements Coleccionable<T> {
      * @throws NoSuchElementException si la cola es vacía
      */
     public T dequeue() throws NoSuchElementException {
-        return null;
+        if (esVacio()){
+            throw new NoSuchElementException("La estructura esta vacia");
+        }
+        T aux = inicio.elemento;
+        inicio = inicio.siguiente;
+        elementos--;
+        return aux;
     }
 
     /**
@@ -123,7 +145,7 @@ public class Cola<T> implements Coleccionable<T> {
      * @return el elemento en un extremo de la estructura.
      */
     public T peek() {
-        return null;
+        return inicio.elemento;
     }
 
     /**
@@ -148,6 +170,12 @@ public class Cola<T> implements Coleccionable<T> {
      */
     @Override
     public boolean contiene(T elemento) {
+        Iterator it = iterator();
+        while (it.hasNext()){
+            if (it.next().equals(elemento)){
+                return true;
+            }
+        }
         return false;
     }
 

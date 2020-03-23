@@ -16,5 +16,13 @@ public class Main {
         System.out.println(arreglo);
         System.out.println(regresiva);
 
+        Cola<String> cola = new Cola<>();
+
+        cola.agrega("Un elemento");
+        cola.agrega("Segundo elemento");
+        cola.agrega("Tercer elemento");
+        System.out.println("Aqui comienza la cola\n" + cola);
+        cola.elimina("Segundo elemento");
+        System.out.println(cola);
     }
 }

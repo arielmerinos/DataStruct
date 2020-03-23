@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
  * <p> Clase concreta para modelar la estructura de datos Pila</p>
  * <p>Esta clase implementa una Pila genérica, es decir que es homogénea pero
  * puede tener elementos de cualquier tipo.
- * @author Alejandro Hernández Mora <alejandrohmora@ciencias.unam.mx>
+ * @author Kevin Ariel Merino <arielmerino@ciencias.unam.mx>
  * @version 1.0
  * @param <T> Tipo que tienen los objetos que guarda esta pila.
  */

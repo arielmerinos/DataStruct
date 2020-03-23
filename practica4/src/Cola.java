@@ -29,8 +29,7 @@ public class Cola<T> implements Coleccionable<T> {
          * @param elemento el elemento del nodo.
          */
         public Nodo(T elemento) {
-            // Aquí va su código.
-
+            this.elemento = elemento;
         }
     }
 
@@ -44,13 +43,13 @@ public class Cola<T> implements Coleccionable<T> {
         /* Nos dice si hay un elemento siguiente. */
         @Override
         public boolean hasNext() {
-            //Aqui va tu codigo
+            return false;
         }
 
         /* Nos da el elemento siguiente. */
         @Override
         public T next() {
-            //Aqui va tu codigo
+            return null;
         }
 
         @Override
@@ -115,7 +114,7 @@ public class Cola<T> implements Coleccionable<T> {
      * @throws NoSuchElementException si la cola es vacía
      */
     public T dequeue() throws NoSuchElementException {
-        //Aqui va tu codigo
+        return null;
     }
 
     /**
@@ -124,7 +123,7 @@ public class Cola<T> implements Coleccionable<T> {
      * @return el elemento en un extremo de la estructura.
      */
     public T peek() {
-        //Aqui va tu codigo
+        return null;
     }
 
     /**
@@ -149,7 +148,7 @@ public class Cola<T> implements Coleccionable<T> {
      */
     @Override
     public boolean contiene(T elemento) {
-        //Aqui va tu codigo
+        return false;
     }
 
     /**
@@ -171,7 +170,7 @@ public class Cola<T> implements Coleccionable<T> {
      */
     @Override
     public boolean esVacio() {
-        // Aquí va su código.
+        return elementos == 0;
     }
 
     /**
@@ -181,12 +180,12 @@ public class Cola<T> implements Coleccionable<T> {
      */
     @Override
     public int getTamanio() {
-        //Aqui vatu codigo.
+        return elementos;
     }
 
     @Override
     public Iterator<T> iterator() {
-        //Aqui va tu codigo
+        return new IteradorCola();
     }
 
     @Override

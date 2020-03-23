@@ -28,7 +28,7 @@ public class Pila<T> implements Coleccionable<T> {
          * @param elemento el elemento del nodo.
          */
         public Nodo(T elemento) {
-            // Aquí va su código.
+            this.elemento = elemento;
         }
     }
 
@@ -37,19 +37,21 @@ public class Pila<T> implements Coleccionable<T> {
         public Nodo siguiente;
 
         public IteradorPila() {
-            //Aqui va tu codigo
+            siguiente = tope;
         }
 
         /* Nos dice si hay un elemento siguiente. */
         @Override
         public boolean hasNext() {
-            //Aqui va tu codigo
+            return siguiente != null;
         }
 
         /* Nos da el elemento siguiente. */
         @Override
         public T next() {
-            // Aquí va su código.
+            T aux = siguiente.elemento;
+            siguiente = siguiente.siguiente;
+            return aux;
         }
 
         @Override
@@ -75,7 +77,9 @@ public class Pila<T> implements Coleccionable<T> {
      * @param elementos
      */
     public Pila(T[] elementos) {
-        // Aquí va su código.
+        for(T elem: elementos){
+            this.agrega(elem);
+        }
     }
 
     /**
@@ -87,7 +91,9 @@ public class Pila<T> implements Coleccionable<T> {
      * @param elementos La colección de elementos a agregar.
      */
     public Pila(Coleccionable<T> elementos) {
-        // Aquí va su código.
+        for (T elem: elementos){
+            this.agrega(elem);
+        }
     }
 
     /**
@@ -97,7 +103,10 @@ public class Pila<T> implements Coleccionable<T> {
      * @param pila La pila que se va a copiar.
      */
     public Pila(Pila <T> pila){
-        // Aquí va su código.
+        Pila<T> tmp = new Pila<>((Coleccionable<T>) pila);
+        for (T elem: tmp){
+            this.agrega(elem);
+        }
     }
 
     /**
@@ -107,7 +116,17 @@ public class Pila<T> implements Coleccionable<T> {
      * <code>null</code>.
      */
     public void push(T elemento) throws IllegalArgumentException {
-        // Aquí va su código.
+        if (elemento == null){
+            throw  new IllegalArgumentException("El elemento enviado es nulo");
+        }
+        Nodo nuevo = new Nodo(elemento);
+        if (esVacio()){
+            tope = nuevo;
+        }else{
+            nuevo.siguiente = tope;
+            tope = nuevo;
+        }
+        elementos++;
     }
 
     /**
@@ -116,7 +135,13 @@ public class Pila<T> implements Coleccionable<T> {
      * @return el elemento en el tope de la pila.
      */
     public T pop() throws NoSuchElementException{
-        // Aquí va su código.
+        if (esVacio()){
+            throw new NoSuchElementException("La pila esta vacia");
+        }
+        T aux = tope.elemento;
+        tope = tope.siguiente;
+        elementos--;
+        return aux;
     }
 
     /**
@@ -125,7 +150,7 @@ public class Pila<T> implements Coleccionable<T> {
      * @return el elemento en un extremo de la estructura.
      */
     public T peek() {
-        // Aquí va su código.
+        return tope.elemento;
     }
 
     /**
@@ -149,7 +174,13 @@ public class Pila<T> implements Coleccionable<T> {
      */
     @Override
     public boolean contiene(T elemento) {
-        // Aquí va su código.
+        Iterator it = iterator();
+        while (it.hasNext()){
+            if (it.next().equals(elemento)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -170,7 +201,7 @@ public class Pila<T> implements Coleccionable<T> {
      */
     @Override
     public boolean esVacio() {
-        // Aquí va su código.
+        return elementos == 0;
     }
 
     /**
@@ -180,12 +211,12 @@ public class Pila<T> implements Coleccionable<T> {
      */
     @Override
     public int getTamanio() {
-        //Aqui va tu codigo.
+        return elementos;
     }
 
     @Override
     public Iterator<T> iterator() {
-        //Aqui va tu codigo
+        return new IteradorPila();
     }
 
     @Override

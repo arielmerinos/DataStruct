@@ -29,12 +29,13 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         /* Nos dice si hay un elemento siguiente. */
         @Override public boolean hasNext() {
             // Aquí va su código.
-
+            return false;
         }
 
         /* Regresa el siguiente elemento en orden DFS in-order. */
         @Override public T next() {
             // Aquí va su código.
+            return null;
         }
     }
 
@@ -71,6 +72,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
 
     protected Nodo<T> eliminaNodo(Nodo<T> n){
         //Aqui va tu codigo
+        return null;
     }
 
     /**
@@ -87,6 +89,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
 
     private Nodo maximoEnSubarbolIzquierdo(Nodo n){
         //Aqui va tu codigo
+        return null;
     }
 
     /**
@@ -98,10 +101,12 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
      */
     @Override public boolean contiene(T elemento){
         //Aqui va tu codigo
+        return false;
     }
 
     protected Nodo<T> buscaNodo(Nodo<T> n, T elemento){
         //Aqui va tu codigo
+        return null;
     }
 
 

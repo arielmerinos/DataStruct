@@ -27,7 +27,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
          * @param elemento el elemento del nodo.
          */
         public Nodo(T elemento) {
-            //Aqui va tu codigo
+            this.elemento = elemento;
         }
 
         /**
@@ -36,7 +36,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
          *         <tt>false</tt> en otro caso.
          */
         public boolean hayPadre() {
-            //Aqui va tu codigo
+            return padre != null;
         }
 
         /**
@@ -45,7 +45,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
          *         <tt>false</tt> en otro caso.
          */
         public boolean hayIzquierdo() {
-            //Aqui va tu codigo
+            return  izquierdo != null;
         }
 
         /**
@@ -54,7 +54,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
          *         <tt>false</tt> en otro caso.
          */
         public boolean hayDerecho() {
-            //Aqui va tu codigo
+            return derecho != null;
         }
 
         /**
@@ -62,7 +62,11 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
          * @return la altura del nodo.
          */
         public int altura() {
-            //Aqui va tu codigo
+            if (elemento == null){
+                return 0;
+            }else{
+                return 1+ Math.max(izquierdo.altura(), derecho.altura());
+            }
         }
 
         /**
@@ -70,7 +74,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
          * @return el elemento al que apunta el nodo.
          */
         public T get() {
-            //Aqui va tu codigo
+            return elemento;
         }
 
         /**
@@ -85,8 +89,16 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
          */
         @Override
         public boolean equals(Object o) {
-            //Aqui va tu codigo
-
+            Nodo obj = (Nodo)o;
+            if (o == null && this == null){
+                return true;
+            }else if (o == null  ^ this == null){
+                return false;
+            }else if( elemento.equals(obj.elemento)){
+                return izquierdo.equals(obj.izquierdo) && derecho.equals(obj.derecho);
+            }else {
+                return false;
+            }
         }
 
 
@@ -95,7 +107,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
          * @return una representación en cadena del nodo.
          */
         public String toString() {
-            //Aqui va tu codigo
+            return (String) elemento;
         }
     }
 
@@ -139,7 +151,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
      * @return la altura del árbol.
      */
     public int altura() {
-        //Aqui va tu codigo
+        return raiz.altura();
     }
 
     /**
@@ -148,7 +160,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
      */
     @Override
     public int getTamanio() {
-        //Aqui va tu codigo
+        return tamanio;
     }
 
 
@@ -158,7 +170,10 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
      * @throws NoSuchElementException si el árbol es vacío.
      */
     public Nodo<T> raiz() {
-        //Aqui va tu codigo
+        if (esVacio()){
+            throw new NoSuchElementException("El arbol es vacio");
+        }
+        return raiz;
     }
 
     /**
@@ -168,7 +183,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
      */
     @Override
     public boolean esVacio() {
-        //Aqui va tu codigo
+         return tamanio == 0;
     }
 
     /**
@@ -185,6 +200,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
      */
     public Lista<T> inOrden(){
         //Aqui va tu codigo
+        return null;
     }
 
     /**
@@ -194,6 +210,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
 
     public Lista<T> preOrden(){
         //Aqui va tu codigo
+        return null;
     }
     /**
      * Regresa una Cola con el los elementos en inorden del árbol.
@@ -201,6 +218,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
      */
     public Lista<T> postOrden(){
         //Aqui va tu codigo
+        return null;
     }
 
     private void inordenAux(Nodo<T> n,Lista<T> l){
@@ -224,7 +242,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
      */
     @Override
     public boolean equals(Object o) {
-        //Aqui va tu codigo
+        return raiz.equals((Nodo)o);
     }
 
     /**

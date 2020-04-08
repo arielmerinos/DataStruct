@@ -342,7 +342,7 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
      */
     public <T extends Comparable<T>> Lista<T> mezcla(Lista<T> l1, Lista<T> l2){
         Lista<T> l = new Lista<T>();
-        Nodo aux = l1.cabeza;
+        Lista<T>.Nodo aux = l1.cabeza;
         while( l1.cabeza != null && l2.cabeza != null) {
             if (l1.cabeza.elemento.compareTo(l2.cabeza.elemento) < 0) {
                 l.agregarAlFinal(l1.cabeza.elemento);

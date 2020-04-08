@@ -58,8 +58,8 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         //Aqui va tu codigo
     }
 
-    protected void agregaNodo(Nodo<T> n, Nodo<T> nuevo){
-        //Aqui va tu codigo
+    protected void agregaNodo(Nodo<T> n, Nodo<T> nuevo) {
+
     }
 
     /**
@@ -67,7 +67,11 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
      * @param elemento el elemento a agregar.
      */
     @Override public void agrega(T elemento) {
-        //Aqui va tu codigo
+        Nodo nuevo = nuevoNodo(elemento);
+        if (esVacio()){
+            raiz = nuevo;
+        }
+        tamanio++;
     }
 
     protected Nodo<T> eliminaNodo(Nodo<T> n){

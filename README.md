@@ -1,4 +1,4 @@
-# Estrucutras discretas
+# Estructuras de datos
 
 En este curso analizamos las estructuras de datos, cubriendo de los siguientes temas
 

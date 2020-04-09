@@ -114,8 +114,10 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
 
 
     private Nodo maximoEnSubarbolIzquierdo(Nodo n){
-
-        return null;
+        if (!n.hayDerecho()){
+            return n;
+        }
+        return maximoEnSubarbolIzquierdo(n.derecho);
     }
 
     /**
@@ -131,7 +133,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         }
         return buscaNodo(raiz, elemento) != null;
     }
-    
+
 
     protected Nodo<T> buscaNodo(Nodo<T> n, T elemento){
         if (n == null){

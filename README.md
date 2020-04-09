@@ -1,5 +1,19 @@
 # Estrucutras discretas
 
+En este curso analizamos las estructuras de datos, cubriendo de los siguientes temas
+
+* Tipo Abstracto de datos
+* Arreglos
+* Arreglos dinámicos
+* Listas doblemente ligadas
+* Pilas
+* Colas
+* Listas circulares
+* Arboles binarios 
+* Árboles binarios de búsqueda
+
+Nos encargamos de desmenuzar dichas estructuras para conocer su funcionamiento y luego procedemos a implementarlo en alguna tarea ;) Prácticas y tareas se alojarán aquí también.
+
 Grupo | Semestre
 ------|----------
 7030  | 2020-2
@@ -13,19 +27,6 @@ Horario         | Día              | Tipo de clase       | Aula
 13:00 - 14:30   | Martes, Jueves   | Profesor            | P208
 
 
-
-En este curso analizamos las estructuras de datos, cubriendo de los siguientes temas
-
-* Tipo Abstracto de datos
-* Arreglos
-* Arreglos dinámicos
-* Listas doblemente ligadas
-* Pilas
-* Colas
-* Listas circulares
-* Arboles binarios 
-* Árboles binarios de búsqueda
-
 ## Enlaces
 - [_Plan de estudios_](https://web.fciencias.unam.mx/asignaturas/1222.pdf) 
 - [Página oficial del curso](https://sites.google.com/a/ciencias.unam.mx/edd20202/home)
@@ -38,3 +39,5 @@ En este curso analizamos las estructuras de datos, cubriendo de los siguientes t
 
 ## Contacto
 Ariel Merino [e-mail](mailto:arielmerino@ciencias.unam.mx)
+
+:dolphin: :dolphin: :dolphin: :dolphin:

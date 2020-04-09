@@ -1,5 +1,6 @@
 import java.util.Iterator;
 import java.lang.Comparable;
+import java.util.NoSuchElementException;
 
 /**
  * <p>Clase para modelar árboles binarios de búsqueda genéricos.</p>
@@ -22,19 +23,32 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
 
         /* Construye un iterador con el nodo recibido. */
         public Iterador() {
-            //Aqui va tu codigo
+            pila = new Pila<>();
+            Nodo n = raiz;
+            while (n != null){
+                pila.agrega(n);
+                n = n.izquierdo;
+            }
         }
 
         /* Nos dice si hay un elemento siguiente. */
         @Override public boolean hasNext() {
-            // Aquí va su código.
-            return false;
+            return !pila.esVacio();
         }
 
         /* Regresa el siguiente elemento en orden DFS in-order. */
         @Override public T next() {
-            // Aquí va su código.
-            return null;
+            if(pila.esVacio()){
+                throw  new NoSuchElementException("No hay mas elementos");
+            }
+            Nodo n = pila.pop();
+            T elem = (T) n.elemento;
+            n = n.derecho;
+            while (n != null){
+                pila.push(n);
+                n = n.izquierdo;
+            }
+            return elem;
         }
     }
 

@@ -1,5 +1,4 @@
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.lang.Comparable;
 
 /**
@@ -54,9 +53,25 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
      */
 
     public ArbolBinarioBusqueda(Coleccionable<T> coleccion) {
+        super(coleccion);
     }
 
     protected void agregaNodo(Nodo<T> n, Nodo<T> nuevo) {
+        if(n.elemento.compareTo(nuevo.elemento) >= 0){
+            if (n.hayIzquierdo()){
+                agregaNodo(n.izquierdo, nuevo);
+            }else {
+                n.izquierdo = nuevo;
+                nuevo.padre = n;
+            }
+        }else {
+            if (n.hayDerecho()){
+                agregaNodo(n.derecho, nuevo);
+            }else {
+                n.derecho = nuevo;
+                nuevo.padre = n;
+            }
+        }
 
     }
 
@@ -65,14 +80,17 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
      * @param elemento el elemento a agregar.
      */
     @Override public void agrega(T elemento) {
-        Nodo nuevo = nuevoNodo(elemento);
-        if (esVacio()){
-            raiz = nuevo;
-        }else{
-            raiz.derecho = nuevo;
-            raiz.izquierdo = nuevo;
+        if (elemento == null) {
+            throw new IllegalArgumentException("El elemento enviado es nulo");
         }
+        Nodo agregar = new Nodo<>(elemento);
         tamanio++;
+        if (raiz == null){
+            raiz = agregar;
+        }else {
+            agregaNodo(raiz, agregar);
+        }
+
     }
 
     protected Nodo<T> eliminaNodo(Nodo<T> n){

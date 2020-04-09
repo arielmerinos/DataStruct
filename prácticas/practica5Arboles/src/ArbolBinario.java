@@ -136,7 +136,9 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
      *        binario.
      */
     public ArbolBinario(Coleccionable<T> coleccion) {
-
+        for (T elemento : coleccion) {
+            this.agrega(elemento);
+        }
     }
 
     /**

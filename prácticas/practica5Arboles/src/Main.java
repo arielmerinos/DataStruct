@@ -7,6 +7,11 @@ public class Main {
         arbolBinario.agrega(7);
         arbolBinario.agrega(17);
         arbolBinario.agrega(9);
+        arbolBinario.agrega(13);
+        arbolBinario.agrega(10);
+        arbolBinario.agrega(12);
+        arbolBinario.agrega(9);
+        arbolBinario.elimina(9);
         System.out.println(arbolBinario);
         System.out.println(" la altura del arbol es: " + arbolBinario.altura());
         System.out.println(arbolBinario.inOrden());

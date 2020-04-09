@@ -108,7 +108,49 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     }
 
     protected Nodo<T> eliminaNodo(Nodo<T> n){
-        //Aqui va tu codigo
+        /**
+         * Donde es la raiz sin hijos
+         */
+        if(!n.hayPadre() && !n.hayIzquierdo() &&!n.hayIzquierdo()){
+            limpia();
+            /**
+             * Donde es la raiz y tiene hijo derecho
+             */
+        }else if(!n.hayPadre()&& n.hayDerecho()){
+            raiz = n.derecho;
+            n.derecho.padre = null;
+            /**
+             * donde es la raiz y tiene hijo izquierdo
+             */
+        }else if (!n.hayPadre() && n.hayIzquierdo()){
+            raiz = n.izquierdo;
+            n.izquierdo.padre = null;
+            /**
+             * Donde es una hoja
+             */
+        }else if(!n.hayDerecho() && !n.hayIzquierdo() ){
+            if (n.padre.hayIzquierdo() && n.padre.izquierdo == n){
+                n.padre.izquierdo = null;
+            }else {
+                n.padre.derecho = null;
+            }
+        }else if( n.hayDerecho()){
+            if (n.padre.hayIzquierdo() && n.padre.izquierdo == n){
+                n.padre.izquierdo = n.derecho;
+                n.derecho.padre = n.padre;
+            }else {
+                n.padre.derecho = n.derecho;
+                n.derecho.padre = n.padre;
+            }
+        }else if (n.hayIzquierdo()){
+            if (n.padre.hayIzquierdo() && n.padre.izquierdo == n){
+                n.padre.izquierdo = n.izquierdo;
+                n.izquierdo.padre = n.padre;
+            }else {
+                n.padre.derecho = n.izquierdo;
+                n.izquierdo.padre = n.padre;
+            }
+        }
         return null;
     }
 
@@ -122,8 +164,19 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         if (elemento == null){
             throw  new IllegalArgumentException("El elemento a eliminar es nulo");
         }
-        Nodo n = buscaNodo(raiz,elemento);
-        eliminaNodo(n);
+        if(!contiene(elemento)){
+            return;
+        }
+        Nodo elimina = buscaNodo(raiz,elemento);
+        tamanio--;
+        if (elimina.hayIzquierdo() && elimina.hayDerecho()){
+            Nodo nodoMax = maximoEnSubarbolIzquierdo(elimina.izquierdo);
+            T elemMax = (T) nodoMax.elemento;
+            elimina.elemento = elemMax;
+            eliminaNodo(nodoMax);
+        }else{
+            eliminaNodo(elimina);
+        }
     }
 
 
@@ -168,7 +221,12 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
      * @param nodo el nodo sobre el que vamos a girar.
      */
     public void giraDerecha(Nodo<T> nodo) {
-        //Aqui va tu codigo
+        if (nodo == null){
+            throw new IllegalArgumentException("No puedo girar desde un nodo nullo");
+        }
+        if (!nodo.hayIzquierdo()){
+            return;
+        }
     }
 
     /**
@@ -177,7 +235,12 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
      * @param nodo el nodo sobre el que vamos a girar.
      */
     public void giraIzquierda(Nodo<T> nodo) {
-        //Aqui va tu codigo
+        if (nodo == null){
+            throw new IllegalArgumentException("No puedo girar desde un nodo nullo");
+        }
+        if (!nodo.hayDerecho()){
+            return;
+        }
     }
 
 

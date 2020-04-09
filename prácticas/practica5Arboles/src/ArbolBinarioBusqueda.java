@@ -44,7 +44,6 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
      * Constructor que no recibe parámeteros. {@link ArbolBinario}.
      */
     public ArbolBinarioBusqueda() {
-
     }
 
     /**
@@ -55,7 +54,6 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
      */
 
     public ArbolBinarioBusqueda(Coleccionable<T> coleccion) {
-        //Aqui va tu codigo
     }
 
     protected void agregaNodo(Nodo<T> n, Nodo<T> nuevo) {
@@ -71,7 +69,8 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         if (esVacio()){
             raiz = nuevo;
         }else{
-            
+            raiz.derecho = nuevo;
+            raiz.izquierdo = nuevo;
         }
         tamanio++;
     }

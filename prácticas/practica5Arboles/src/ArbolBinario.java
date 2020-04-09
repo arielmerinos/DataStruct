@@ -67,7 +67,13 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
             }else if(tamanio == 1){
                 return 1;
             }else {
-                return 1+ Math.max(izquierdo.altura(), derecho.altura());
+                int alturader = 0;
+                int alturaizq = 0;
+                if (hayDerecho())
+                      alturader = derecho.altura();
+                if (hayIzquierdo())
+                     alturaizq = izquierdo.altura();
+                return 1 + Math.max(alturader, alturaizq);
             }
         }
 
@@ -130,7 +136,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
      *        binario.
      */
     public ArbolBinario(Coleccionable<T> coleccion) {
-        //Aqui va tu codigo
+
     }
 
     /**
@@ -202,8 +208,9 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
      * @return Cola con los elementos del arbol.
      */
     public Lista<T> inOrden(){
-        //Aqui va tu codigo
-        return null;
+        Lista inorden = new Lista();
+        inordenAux(raiz, inorden);
+        return inorden;
     }
 
     /**
@@ -212,28 +219,42 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
      */
 
     public Lista<T> preOrden(){
-        //Aqui va tu codigo
-        return null;
+        Lista preorden = new Lista();
+        preordenAux(raiz, preorden);
+        return preorden;
     }
     /**
      * Regresa una Cola con el los elementos en inorden del árbol.
      * @return Cola con los elementos del arbol.
      */
     public Lista<T> postOrden(){
-        //Aqui va tu codigo
-        return null;
+        Lista postorden = new Lista();
+        postordenAux(raiz, postorden);
+        return postorden;
     }
 
     private void inordenAux(Nodo<T> n,Lista<T> l){
-        //Aqui va tu codigo
+        if (n != null){
+            inordenAux(n.izquierdo, l);
+            l.agregar(n.elemento);
+            inordenAux(n.derecho,l);
+        }
     }
 
     private void preordenAux(Nodo<T> n, Lista<T> l){
-        //Aqui va tu codigo
+        if (n != null){
+            l.agregar(n.elemento);
+            preordenAux(n.izquierdo, l);
+            preordenAux(n.derecho, l);
+        }
     }
 
     private void postordenAux(Nodo<T> n, Lista<T> l){
-        //Aqui va tu codigo
+        if (n != null){
+            postordenAux(n.izquierdo, l);
+            postordenAux(n.derecho, l);
+            l.agregar(n.elemento);
+        }
     }
 
 

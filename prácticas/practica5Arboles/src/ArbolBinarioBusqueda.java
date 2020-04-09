@@ -105,13 +105,16 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
      * @param elemento el elemento a eliminar.
      */
     @Override public void elimina(T elemento) {
+        if (elemento == null){
+            throw  new IllegalArgumentException("El elemento a eliminar es nulo");
+        }
         Nodo n = buscaNodo(raiz,elemento);
         eliminaNodo(n);
     }
 
 
     private Nodo maximoEnSubarbolIzquierdo(Nodo n){
-        //Aqui va tu codigo
+
         return null;
     }
 
@@ -123,13 +126,23 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
      *         <code>false</code> en otro caso.
      */
     @Override public boolean contiene(T elemento){
-        //Aqui va tu codigo
-        return false;
+        if (elemento == null){
+            throw  new IllegalArgumentException("Elemento invalido");
+        }
+        return buscaNodo(raiz, elemento) != null;
     }
+    
 
     protected Nodo<T> buscaNodo(Nodo<T> n, T elemento){
-        //Aqui va tu codigo
-        return null;
+        if (n == null){
+            return null;
+        }
+        if (n.elemento.equals(elemento)){
+            return n;
+        }
+        Nodo subAIzq = buscaNodo(n.izquierdo, elemento);
+        Nodo subADer = buscaNodo(n.derecho, elemento);
+        return subAIzq != null ? subAIzq : subADer;
     }
 
 

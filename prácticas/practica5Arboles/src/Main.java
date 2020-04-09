@@ -10,5 +10,6 @@ public class Main {
         System.out.println(arbolBinario);
         System.out.println(" la altura del arbol es: " + arbolBinario.altura());
         System.out.println(arbolBinario.inOrden());
+        System.out.println(arbolBinario.contiene(19));
     }
 }

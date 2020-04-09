@@ -70,6 +70,8 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         Nodo nuevo = nuevoNodo(elemento);
         if (esVacio()){
             raiz = nuevo;
+        }else{
+            
         }
         tamanio++;
     }

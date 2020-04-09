@@ -6,11 +6,11 @@ Grupo | Semestre
 
 se imparte de manera presencial en la facultad de ciencias de la UNAM
 
-Horario | Día | Tipo de clase | Aula
---------|-----|----------------------
-13:00 - 14:00 | Lunes, Miércoles | Ayudantía de teoría | P207
-10:00 -12:00 | Martes, Jueves | Laboratorio | LCC3
-13:00 - 14:30 | Martes, Jueves | Profesor | P208
+Horario         | Día              | Tipo de clase       | Aula
+----------------|------------------|---------------------|------
+13:00 - 14:00   | Lunes, Miércoles | Ayudantía de teoría | P207
+10:00 -12:00    | Martes, Jueves   | Laboratorio         | LCC3
+13:00 - 14:30   | Martes, Jueves   | Profesor            | P208
 
 
 

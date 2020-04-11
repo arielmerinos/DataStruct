@@ -227,6 +227,23 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         if (!nodo.hayIzquierdo()){
             return;
         }
+        Nodo aux = nodo.izquierdo;
+        aux.padre = nodo.padre;
+        if (aux != raiz){
+            if (nodo.padre.izquierdo == nodo){
+                nodo.padre.izquierdo = aux;
+            }else {
+                nodo.padre.derecho = aux;
+            }
+        }else {
+            raiz = nodo;
+        }
+        nodo.izquierdo = aux.derecho;
+        if (aux.hayDerecho()){
+            aux.derecho.padre = nodo;
+        }
+        aux.derecho = nodo;
+        nodo.padre = aux;
     }
 
     /**
@@ -241,6 +258,23 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         if (!nodo.hayDerecho()){
             return;
         }
+        Nodo aux = nodo.derecho;
+        aux.padre = nodo.padre;
+        if (nodo != raiz){
+            if (nodo.padre.izquierdo == nodo){
+                nodo.padre.izquierdo = aux;
+            }else {
+                nodo.padre.derecho = aux;
+            }
+        }else{
+            raiz = aux;
+        }
+        nodo.derecho = aux.izquierdo;
+        if (aux.hayIzquierdo()){
+            aux.izquierdo.padre = nodo;
+        }
+        aux.izquierdo = nodo;
+        nodo.padre = aux;
     }
 
 

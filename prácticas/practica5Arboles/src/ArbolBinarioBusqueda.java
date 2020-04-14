@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
  *   <li>Cualquier elemento en el árbol es menor o igual que todos sus
  *       descendientes por la derecha.</li>
  * </ul>
+ * @author Ariel Merino 317031326
  */
 public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<T> {
 
@@ -97,7 +98,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         if (elemento == null) {
             throw new IllegalArgumentException("El elemento enviado es nulo");
         }
-        Nodo agregar = new Nodo<>(elemento);
+        Nodo agregar = nuevoNodo(elemento);
         tamanio++;
         if (raiz == null){
             raiz = agregar;

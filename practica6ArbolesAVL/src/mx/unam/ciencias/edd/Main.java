@@ -1,3 +1,5 @@
+package mx.unam.ciencias.edd;
+
 import java.util.Iterator;
 
 public class Main {

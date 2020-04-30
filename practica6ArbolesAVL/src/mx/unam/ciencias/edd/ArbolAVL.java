@@ -63,7 +63,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
      * de {@link ArbolBinarioBusqueda}.
      */
     public ArbolAVL() {
-        //tu codigo va aqui
+
     }
 
     /**
@@ -79,7 +79,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
     }
 
     /**
-     * Construye un nuevo nodo, usando una instancia de {@link nodoAVL}.
+     * Construye un nuevo nodo, usando una instancia de {@link NodoAVL}.
      * @param elemento el elemento dentro del nodo.
      * @return un nuevo nodo con el elemento recibido dentro del mismo.
      */
@@ -102,7 +102,13 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
      * Método privado que rebalance el árbol.
      */
     private void rebalanceo(NodoAVL nodo) {
-        //tu codigo va aqui
+        int balanceo = nodo.izquierdo.altura() - nodo.derecho.altura();
+        if (balanceo == 2){
+
+        }
+        if (balanceo == -2){
+
+        }
     }
 
     /**
@@ -126,8 +132,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
      */
     @Override public void giraDerecha(Nodo<T> nodo) {
         throw new UnsupportedOperationException("Los árboles AVL no  pueden " +
-                "girar a la izquierda por el " +
-                "usuario.");
+                "girar a la izquierda por el usuario.");
     }
 
     /**
@@ -139,8 +144,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
      */
     @Override public void giraIzquierda(Nodo<T> nodo) {
         throw new UnsupportedOperationException("Los árboles AVL no  pueden " +
-                "girar a la derecha por el " +
-                "usuario.");
+                "girar a la derecha por el usuario.");
     }
 
 }

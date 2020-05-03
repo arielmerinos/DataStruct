@@ -66,7 +66,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
          */
         public int altura() {
             if (elemento == null){
-                return 0;
+                return -1;
             }else if(tamanio == 1){
                 return 1;
             }else {

@@ -63,7 +63,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
      * de {@link ArbolBinarioBusqueda}.
      */
     public ArbolAVL() {
-
+        super();
     }
 
     /**
@@ -73,9 +73,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
      *        rojinegro.
      */
     public ArbolAVL(Coleccionable<T> coleccion) {
-        for (T elem: coleccion){
-            agrega(elem);
-        }
+        super(coleccion);
     }
 
     /**
@@ -102,13 +100,31 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
      * Método privado que rebalance el árbol.
      */
     private void rebalanceo(NodoAVL nodo) {
-        int balanceo = nodo.izquierdo.altura() - nodo.derecho.altura();
-        if (balanceo == 2){
+        if (nodo == null){
+            return;
+        }
+        checaAltura(nodo);
+        int balance = balanceo(nodo);
+        if (balance == 2){
+            NodoAVL n = nuevoNodo((T) nodo.izquierdo.elemento);
+            if (balanceo(n) == -1){
+                giraIzquierdaAVL(n);
+            }
+            giraDerechaAVL(nodo);
 
         }
-        if (balanceo == -2){
-
+        else if (balance == -2){
+            NodoAVL n = nuevoNodo((T) nodo.derecho.elemento);
+            if (balanceo(n) == 1){
+                giraDerechaAVL(n);
+            }
+            giraIzquierdaAVL(nodo);
         }
+        rebalanceo((NodoAVL) nodo.padre);
+    }
+
+    private int balanceo(NodoAVL n){
+        return getAltura((NodoAVL) n.izquierdo) -getAltura((NodoAVL)n.derecho);
     }
 
     /**
@@ -117,10 +133,9 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
      * @param elemento el elemento a eliminar del árbol.
      */
     @Override public void elimina(T elemento) {
+        Nodo<T> nodo = buscaNodo(raiz, elemento);
         super.elimina(elemento);
-        /**
-         * Falta rebalancear
-         */
+        rebalanceo((NodoAVL) nodo);
     }
 
     /**
@@ -145,6 +160,23 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
     @Override public void giraIzquierda(Nodo<T> nodo) {
         throw new UnsupportedOperationException("Los árboles AVL no  pueden " +
                 "girar a la derecha por el usuario.");
+    }
+
+    private void checaAltura(NodoAVL n){
+        n.altura = altura();
+    }
+    private void giraDerechaAVL(NodoAVL p){
+        super.giraDerecha(p);
+        checaAltura(p);
+        checaAltura((NodoAVL) p.padre);
+    }
+    private void giraIzquierdaAVL(NodoAVL p){ // Aquí suponemos que p tiene hijo derecho q
+        super.giraIzquierda(p);
+        checaAltura(p);
+        checaAltura((NodoAVL) p.padre);
+    }
+    private int getAltura(NodoAVL v){
+        return (v == null) ? 0 : v.altura;
     }
 
 }

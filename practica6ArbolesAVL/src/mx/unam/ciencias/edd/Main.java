@@ -5,7 +5,7 @@ import java.util.Iterator;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello wordl!");
-        ArbolBinarioBusqueda<Integer> arbolBinario = new ArbolBinarioBusqueda<>();
+        ArbolAVL<Integer> arbolBinario = new ArbolAVL<>();
         arbolBinario.agrega(15);
         arbolBinario.agrega(16);
         arbolBinario.agrega(7);

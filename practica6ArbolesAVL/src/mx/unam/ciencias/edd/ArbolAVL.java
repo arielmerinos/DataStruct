@@ -92,6 +92,9 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
      */
     @Override public void agrega(T elemento) {
         super.agrega(elemento);
+        Nodo<T> nodoAVL = buscaNodo(raiz, elemento);
+        rebalanceo((NodoAVL)nodoAVL);
+        checaAltura((NodoAVL)nodoAVL);
         /**
          * Falta invocal al valanceo
          */
@@ -101,11 +104,14 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
      */
     private void rebalanceo(NodoAVL nodo) {
         if (nodo == null){
+            System.out.println("n este caso el nodo es nulo");
             return;
         }
         checaAltura(nodo);
         int balance = balanceo(nodo);
+        System.out.println("Este nodo: " +nodo + " tiene balanceo: " + balance);
         if (balance == 2){
+            System.out.println("Entro al caso en el que la direfencia es 2");
             NodoAVL n = nuevoNodo((T) nodo.izquierdo.elemento);
             if (balanceo(n) == -1){
                 giraIzquierdaAVL(n);
@@ -114,6 +120,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 
         }
         else if (balance == -2){
+            System.out.println("Entro al caso en el que la direfencia es -2");
             NodoAVL n = nuevoNodo((T) nodo.derecho.elemento);
             if (balanceo(n) == 1){
                 giraDerechaAVL(n);
@@ -124,6 +131,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
     }
 
     private int balanceo(NodoAVL n){
+        System.out.println("El el nodo: " + n + " el balanceo va como, iz: " + getAltura((NodoAVL)n.izquierdo) +" der: " + getAltura((NodoAVL)n.derecho));
         return getAltura((NodoAVL) n.izquierdo) -getAltura((NodoAVL)n.derecho);
     }
 
@@ -176,7 +184,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
         checaAltura((NodoAVL) p.padre);
     }
     private int getAltura(NodoAVL v){
-        return (v == null) ? 0 : v.altura;
+        return (v == null) ? -1 : v.altura;
     }
 
 }

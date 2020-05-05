@@ -6,16 +6,13 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello wordl!");
         ArbolAVL<Integer> arbolBinario = new ArbolAVL<>();
-        arbolBinario.agrega(15);
-        arbolBinario.agrega(16);
+        arbolBinario.agrega(5);
+        System.out.println(arbolBinario.altura());
+        arbolBinario.agrega(3);
+        System.out.println(arbolBinario.altura());
         arbolBinario.agrega(7);
-        arbolBinario.agrega(17);
+        arbolBinario.agrega(8);
         arbolBinario.agrega(9);
-        arbolBinario.agrega(13);
-        arbolBinario.agrega(10);
-        arbolBinario.agrega(12);
-        arbolBinario.agrega(9);
-        arbolBinario.elimina(9);
         System.out.println(arbolBinario);
         System.out.println(" la altura del arbol es: " + arbolBinario.altura());
         System.out.println(arbolBinario.inOrden());

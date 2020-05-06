@@ -65,18 +65,14 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
          * @return la altura del nodo.
          */
         public int altura() {
-            if (elemento == null){
-                return -1;
-            }else if(tamanio == 1){
-                return 1;
+            if (hayIzquierdo() && hayDerecho()){
+                return  1 + Math.max(this.izquierdo.altura(), this.derecho.altura());
+            }else if (hayIzquierdo()){
+                return 1 + this.izquierdo.altura();
+            } else if (hayDerecho()){
+                return 1 + this.derecho.altura();
             }else {
-                int alturader = 0;
-                int alturaizq = 0;
-                if (hayDerecho())
-                      alturader = derecho.altura();
-                if (hayIzquierdo())
-                     alturaizq = izquierdo.altura();
-                return 1 + Math.max(alturader, alturaizq);
+                return 0;
             }
         }
 
@@ -164,7 +160,8 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
      * @return la altura del árbol.
      */
     public int altura() {
-        return raiz.altura();
+        int a = esVacio() ? -1: raiz.altura();
+        return a;
     }
 
     /**
@@ -196,7 +193,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
      */
     @Override
     public boolean esVacio() {
-         return tamanio == 0 && raiz == null;
+         return this.raiz == null;
     }
 
     /**

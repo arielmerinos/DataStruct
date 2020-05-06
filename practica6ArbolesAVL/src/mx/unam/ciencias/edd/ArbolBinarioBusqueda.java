@@ -54,6 +54,11 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         }
     }
 
+    protected Nodo ultimo;
+
+    public Nodo getUltimo() {
+        return ultimo;
+    }
 
     /**
      * Constructor que no recibe parámeteros. {@link ArbolBinario}.
@@ -88,7 +93,6 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
                 nuevo.padre = n;
             }
         }
-
     }
 
     /**
@@ -99,12 +103,13 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         if (elemento == null) {
             throw new IllegalArgumentException("El elemento enviado es nulo");
         }
-        Nodo agregar = nuevoNodo(elemento);
+        Nodo agregar = this.nuevoNodo(elemento);
+        this.ultimo = agregar;
         tamanio++;
         if (raiz == null){
-            raiz = agregar;
+            this.raiz = agregar;
         }else {
-            agregaNodo(raiz, agregar);
+            this.agregaNodo(raiz, agregar);
         }
 
     }
@@ -159,7 +164,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     /**
      * Elimina un elemento. Si el elemento no está en el árbol, no hace nada; si
      * está varias veces, elimina el primero que encuentre (in-order). El árbol
-     * conserva su orden in-order.
+     * conserva su orden in-order.tamanio == 0 &&
      * @param elemento el elemento a eliminar.
      */
     @Override public void elimina(T elemento) {

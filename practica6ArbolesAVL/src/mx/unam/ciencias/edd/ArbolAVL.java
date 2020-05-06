@@ -4,7 +4,7 @@ package mx.unam.ciencias.edd;
  * <p>Clase para árboles AVL.</p>
  *
  * <p>Un árbol AVL cumple que para cada uno de sus nodos, la diferencia entre
- * la áltura de sus subárboles izquierdo y derecho está entre -1 y 1.</p>
+ * la altura de sus subárboles izquierdo y derecho está entre -1 y 1.</p>
  */
 public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 
@@ -24,6 +24,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
          */
         public NodoAVL(T elemento) {
             super(elemento);
+            this.altura = 0;
         }
 
         /**
@@ -31,7 +32,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
          * @return la altura del nodo.
          */
         @Override public int altura() {
-            return super.altura();
+            return this.altura;
         }
 
 
@@ -92,47 +93,47 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
      */
     @Override public void agrega(T elemento) {
         super.agrega(elemento);
-        Nodo<T> nodoAVL = buscaNodo(raiz, elemento);
-        rebalanceo((NodoAVL)nodoAVL);
-        checaAltura((NodoAVL)nodoAVL);
-        /**
-         * Falta invocal al valanceo
-         */
+        Nodo<T> nodoAVL = this.getUltimo();
+        this.rebalanceo((NodoAVL) nodoAVL);
     }
     /**
      * Método privado que rebalance el árbol.
      */
     private void rebalanceo(NodoAVL nodo) {
         if (nodo == null){
-            System.out.println("n este caso el nodo es nulo");
+            System.out.println("n este caso el nodo ES NULL");
             return;
         }
-        checaAltura(nodo);
-        int balance = balanceo(nodo);
-        System.out.println("Este nodo: " +nodo + " tiene balanceo: " + balance);
-        if (balance == 2){
+        getAltura(nodo);
+        System.out.println("Este nodo: " +nodo + " tiene balanceo: " + getBalance(nodo));
+        if (getBalance(nodo) == -2){
             System.out.println("Entro al caso en el que la direfencia es 2");
-            NodoAVL n = nuevoNodo((T) nodo.izquierdo.elemento);
-            if (balanceo(n) == -1){
-                giraIzquierdaAVL(n);
+            if (getBalance((NodoAVL)nodo.derecho) == 1){
+                NodoAVL der = (NodoAVL) nodo.derecho;
+                this.giraDerechaAVL(der);
+                this.getAltura(der);
+                this.getAltura((NodoAVL)der.padre);
             }
-            giraDerechaAVL(nodo);
-
+            this.giraIzquierdaAVL(nodo);
+            this.getAltura(nodo);
         }
-        else if (balance == -2){
+        else if (getBalance(nodo) == 2){
             System.out.println("Entro al caso en el que la direfencia es -2");
-            NodoAVL n = nuevoNodo((T) nodo.derecho.elemento);
-            if (balanceo(n) == 1){
-                giraDerechaAVL(n);
+            if (getBalance((NodoAVL) nodo.izquierdo) == -1){
+                NodoAVL nIzq = (NodoAVL) nodo.izquierdo;
+                this.giraIzquierdaAVL(nIzq);
+                this.getAltura(nIzq);
+                this.getAltura((NodoAVL)nIzq.padre);
             }
-            giraIzquierdaAVL(nodo);
+            this.giraDerechaAVL(nodo);
+            this.getAltura(nodo);
         }
-        rebalanceo((NodoAVL) nodo.padre);
+        this.rebalanceo((NodoAVL) nodo.padre);
     }
 
-    private int balanceo(NodoAVL n){
+    private int getBalance(NodoAVL n){
         System.out.println("El el nodo: " + n + " el balanceo va como, iz: " + getAltura((NodoAVL)n.izquierdo) +" der: " + getAltura((NodoAVL)n.derecho));
-        return getAltura((NodoAVL) n.izquierdo) -getAltura((NodoAVL)n.derecho);
+        return this.getAltura((NodoAVL)n.izquierdo) - this.getAltura((NodoAVL)n.derecho);
     }
 
     /**
@@ -170,21 +171,18 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
                 "girar a la derecha por el usuario.");
     }
 
-    private void checaAltura(NodoAVL n){
-        n.altura = altura();
-    }
     private void giraDerechaAVL(NodoAVL p){
         super.giraDerecha(p);
-        checaAltura(p);
-        checaAltura((NodoAVL) p.padre);
     }
     private void giraIzquierdaAVL(NodoAVL p){ // Aquí suponemos que p tiene hijo derecho q
         super.giraIzquierda(p);
-        checaAltura(p);
-        checaAltura((NodoAVL) p.padre);
     }
     private int getAltura(NodoAVL v){
-        return (v == null) ? -1 : v.altura;
+        if (v == null){
+            return -1;
+        }
+        v.altura = Math.max(this.getAltura((NodoAVL)v.izquierdo), this.getAltura((NodoAVL)v.derecho)) + 1;
+        return v.altura;
     }
 
 }

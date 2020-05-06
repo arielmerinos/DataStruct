@@ -1,7 +1,5 @@
 package mx.unam.ciencias.edd;
 
-import mx.unam.ciencias.edd.*;
-
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello wordl!");
@@ -15,7 +13,6 @@ public class Main {
         System.out.println(arbolBinario);
         arbolBinario.elimina(6);
         System.out.println(arbolBinario);
-        //System.out.println(arbolBinario.inOrden());
 
     }
 }

@@ -1,6 +1,6 @@
 package mx.unam.ciencias.edd;
 
-import java.util.Iterator;
+import mx.unam.ciencias.edd.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,10 +18,5 @@ public class Main {
         System.out.println(arbolBinario.inOrden());
         System.out.println(arbolBinario.contiene(19));
 
-        Iterator iterator = arbolBinario.iterator();
-        System.out.println("Iterador");
-        while (iterator.hasNext()){
-            System.out.println(iterator.next());
-        }
     }
 }

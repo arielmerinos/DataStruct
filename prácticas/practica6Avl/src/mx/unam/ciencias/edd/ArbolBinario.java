@@ -100,16 +100,26 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
          */
         @Override
         public boolean equals(Object o) {
-            Nodo obj = (Nodo)o;
-            if (o == null && this == null){
-                return true;
-            }else if (o == null  ^ this == null){
-                return false;
-            }else if( elemento.equals(obj.elemento)){
-                return izquierdo.equals(obj.izquierdo) && derecho.equals(obj.derecho);
-            }else {
+            if (o == null || getClass() != o.getClass()){
                 return false;
             }
+            Nodo nodo = (Nodo) o;
+            return equals(this,nodo);
+        }
+        private boolean equals(Nodo nodo1, Nodo nodo2){
+            if (nodo1 == null && nodo1 == null){
+                return true;
+            }
+            if ((nodo1 == null && nodo2 != null) || (nodo1 != null && nodo2 == null)){
+                return false;
+            }
+            if (nodo1.elemento == null && nodo2.elemento == null){
+                return true;
+            }
+            if (!nodo1.elemento.equals(nodo2.elemento)){
+                return false;
+            }
+            return equals(nodo1.izquierdo, nodo2.izquierdo) && equals(nodo1.derecho, nodo2.derecho);
         }
 
 
@@ -288,7 +298,7 @@ public abstract class ArbolBinario<T> implements Coleccionable<T> {
 
     }
 
-    private String cadena(mx.unam.ciencias.edd.ArbolBinario<T>.Nodo<T> v, int n, boolean[] r) {
+    private String cadena(Nodo<T> v, int n, boolean[] r) {
         String s = v + "\n";
         r[n] = true;
         if (v.izquierdo != null && v.derecho != null) {

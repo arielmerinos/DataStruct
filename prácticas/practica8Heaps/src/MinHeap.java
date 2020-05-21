@@ -26,7 +26,7 @@ public class MinHeap<T extends Comparable<T>> extends Heap<T>{
         T min = arreglo[0];
         arreglo[0] = arreglo[siguiente-1];
         arreglo[--siguiente] = null;
-        super.reordenaParaAbajo(0, false);
+        super.reordenaParaAbajo(0, true);
         return min;
     }
 

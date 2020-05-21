@@ -16,7 +16,9 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
         /* Índice del iterador. */
         private int actual;
 
-        /* Construye un nuevo iterador, auxiliándose del heap mínimo. */
+        /**
+         *  Construye un nuevo iterador, auxiliándose del heap mínimo.
+         **/
         public Iterador(Heap<T> heap) {
             // Aquí va su código.
         }
@@ -50,10 +52,10 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
     }
 
     /**
-     * Constructor sin parámetros. Es más eficiente usar {@link#HeapMinimo(Lista)}, pero se ofrece este constructor por completez.
+     * Constructor sin parámetros. Es más eficiente usar {@link#HeapMinimo(Lista<T> lista)}, pero se ofrece este constructor por completez.
      */
     public Heap() {
-        // Aquí va su código.
+        arreglo = creaArregloGenerico(100);
     }
 
     /**
@@ -65,7 +67,10 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      *              heap.
      */
     public Heap(Lista<T> lista) {
-
+        arreglo = creaArregloGenerico(lista.longitud()*2);
+        for (int i = 0; i < lista.longitud(); i++) {
+            arreglo[i] = lista.getElemento(i);
+        }
     }
 
     /**
@@ -77,10 +82,14 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      * heap.
      */
     public Heap(Coleccionable<T> coleccionable) {
-        // Aquí va su código.
+        arreglo = creaArregloGenerico(coleccionable.getTamanio()*2);
+        Iterator<T> it = coleccionable.iterator();
+        for (int i = 0; i < coleccionable.getTamanio(); i++) {
+            arreglo[i] = it.next();
+        }
     }
 
-    /*
+    /**
      * Métodos auxiliares.
      */
     private void intercambia(int i, int j){
@@ -94,7 +103,7 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      * si no tiene hijo izquiero devuelve -1.
      */
     private int izquierdo(int i){
-        // Aquí va su código.
+        return (i*2)+1 > arreglo.length-1 ? -1: (2*i)+1;
     }
 
     /**
@@ -102,7 +111,7 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      * si no tiene hijo derecho devuelve -1.
      */
     private int derecho(int i){
-        // Aquí va su código.
+        return (2*i)+2 > arreglo.length-1 ? -1: (2*i) + 2;
     }
 
     /**
@@ -110,7 +119,7 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      * Si no tiene madre, devuelve -1;
      */
     private int madre(int i){
-        // Aquí va su código.
+        return i < 1 ? -1: (i-1)/2;
     }
 
     /**

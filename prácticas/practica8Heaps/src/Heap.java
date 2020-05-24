@@ -71,7 +71,7 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      * Constructor sin parámetros. Es más eficiente usar {@link#HeapMinimo(Lista)}, pero se ofrece este constructor por completez.
      */
     public Heap() {
-        this.arreglo = creaArregloGenerico(20);
+        this.arreglo = creaArregloGenerico(300);
     }
 
     /**
@@ -141,6 +141,13 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      * @param elemento el elemento a agregar en el heap.
      */
     @Override public void agrega(T elemento) {
+        if(siguiente == arreglo.length){
+            T[] nuevoArreglo = creaArregloGenerico(siguiente * 2);
+            for(int i = 0; i < siguiente; i++){
+                nuevoArreglo[i] = arreglo[i];
+            }
+            arreglo = nuevoArreglo;
+        }
         if (elemento != null) {
             arreglo[siguiente++] = elemento;
             reordena(siguiente-1);

@@ -10,51 +10,68 @@ import java.util.Iterator;
  */
 public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> {
 
-    /* Clase privada para iteradores de heaps. */
+    /**
+     *  Clase privada para iteradores de heaps.
+     **/
     private class Iterador<T extends Comparable<T>> implements Iterator<T> {
 
-        /* Índice del iterador. */
+        /**
+         *  Índice del iterador.
+         **/
         private int actual;
 
         /**
-         *  Construye un nuevo iterador, auxiliándose del heap mínimo.
+         * Construye un nuevo iterador, auxiliándose del heap mínimo.
          **/
         public Iterador() {
+            actual = 0;
         }
 
-        /* Nos dice si hay un siguiente elemento. */
+        /**
+         * Nos dice si hay un siguiente elemento.
+         **/
         @Override public boolean hasNext() {
-            return actual < siguiente && arreglo[actual] != null;
+            return actual < siguiente;
         }
 
-        /* Regresa el siguiente elemento. */
+        /**
+         *  Regresa el siguiente elemento.
+         **/
         @Override public T next() {
-            return (T) arreglo[actual++];
+            return (T)arreglo[actual++];
         }
 
-        /* No lo implementamos: siempre lanza una excepción. */
+        /**
+         *  No lo implementamos: siempre lanza una excepción.
+         **/
         @Override public void remove() {
             throw new UnsupportedOperationException();
         }
     }
 
-    /* El siguiente índice dónde agregar un elemento. */
+    /**
+     * El siguiente índice dónde agregar un elemento.
+     **/
     protected int siguiente;
-    /* El arreglo que guarda los datos con la estructura de árbol ue requiere el heap.*/
+    /**
+     * El arreglo que guarda los datos con la estructura de árbol ue requiere el heap.
+     **/
     protected T[] arreglo;
 
-    /* Truco para crear arreglos genéricos. Es necesario hacerlo así por cómo
-       Java implementa sus genéricos; de otra forma obtenemos advertencias del
-       compilador. */
+    /**
+     * Truco para crear arreglos genéricos. Es necesario hacerlo así por cómo
+     * Java implementa sus genéricos; de otra forma obtenemos advertencias del
+     * compilador.
+     **/
     @SuppressWarnings("unchecked") private T[] creaArregloGenerico(int n) {
         return (T[])(new Comparable[n]);
     }
 
     /**
-     * Constructor sin parámetros. Es más eficiente usar {@link#HeapMinimo(Lista<T> lista)}, pero se ofrece este constructor por completez.
+     * Constructor sin parámetros. Es más eficiente usar {@link#HeapMinimo(Lista)}, pero se ofrece este constructor por completez.
      */
     public Heap() {
-        arreglo = creaArregloGenerico(400);
+        this.arreglo = creaArregloGenerico(20);
     }
 
     /**
@@ -66,14 +83,9 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      *              heap.
      */
     public Heap(Lista<T> lista) {
-        arreglo = creaArregloGenerico(lista.longitud()*2);
-        int i = 0;
-        for (;i < lista.longitud(); i++) {
-            arreglo[i] = lista.getElemento(i);
-        }
-        for ( i = (lista.longitud()-1)/2; i >= 0; i--){
-            this.reordena(i);
-        }
+        Iterator<T> it = lista.iterator();
+        while(it.hasNext())
+            agrega(it.next());
     }
 
     /**
@@ -85,18 +97,16 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      * heap.
      */
     public Heap(Coleccionable<T> coleccionable) {
-        arreglo = creaArregloGenerico(coleccionable.getTamanio()*2);
         Iterator<T> it = coleccionable.iterator();
-        for (int i = 0; i < coleccionable.getTamanio(); i++) {
-            arreglo[i] = it.next();
-        }
+        while(it.hasNext())
+            agrega(it.next());
     }
 
     /**
      * Métodos auxiliares.
      */
     private void intercambia(int i, int j){
-        T aux = arreglo[i];
+        T aux = (T)arreglo[i];
         arreglo[i] = arreglo[j];
         arreglo[j] = aux;
     }
@@ -106,7 +116,7 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      * si no tiene hijo izquiero devuelve -1.
      */
     private int izquierdo(int i){
-        return (i*2)+1 > arreglo.length-1 ? -1: (2*i)+1;
+        return ((i * 2) + 1 < siguiente)? (i * 2) + 1 : -1;
     }
 
     /**
@@ -114,16 +124,16 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      * si no tiene hijo derecho devuelve -1.
      */
     private int derecho(int i){
-        return (2*i)+2 > arreglo.length-1 ? -1: (2*i) + 2;
+        return ((i * 2) + 2 < siguiente)? (i * 2) + 2 : -1;
     }
 
     /**
-     * Método auxiliar que devuelve la posición del madre.
-     * Si no tiene madre, devuelve -1;
+     * Método auxiliar que devuelve la posición del padre.
+     * Si no tiene padre, devuelve -1;
      */
-    private int padre(int i){
-        int padre = (i == 0) ? -1 : (i-1)/2;
-        return padre;
+    private int madre(int i){
+        return ((i - 1) / 2 >= 0)? ((int)((i - 1) / 2)) : -1;
+
     }
 
     /**
@@ -131,17 +141,11 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      * @param elemento el elemento a agregar en el heap.
      */
     @Override public void agrega(T elemento) {
-        if(siguiente == arreglo.length){
-            T[] nuevoArreglo = creaArregloGenerico(siguiente * 2);
-            for(int i = 0; i < siguiente; i++){
-                nuevoArreglo[i] = arreglo[i];
-            }
-            arreglo = nuevoArreglo;
+        if (elemento != null) {
+            arreglo[siguiente++] = elemento;
+            reordena(siguiente-1);
         }
-        arreglo[siguiente] = elemento;
-        siguiente++;
-        System.out.println("Este es el siguiente: "+siguiente);
-        reordena(siguiente-1);
+
     }
 
     /**
@@ -152,25 +156,28 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      * @param n
      */
     protected void reordenaParaAbajo(int n, boolean esMin){
-        System.out.println("Entró al caso en el que reodena par aabajo");
-        if (esMin){
-            while (n != -1){
-                int izq = izquierdo(n);
-                int der = derecho(n);
-                int min = getMenor(n, izq, der);
-                if (izq == -1 && der == -1){
-                    this.siguiente = n;
-                    return;
-                }
-                intercambia(n, min);
-                n = min;
+        int i = izquierdo(n);
+        int d = derecho(n);
+        if (esMin) {
+            int menor = getMenor(n, i, d);
+            while ( n != menor) {
+                intercambia(n, menor);
+                n = menor;
+                i = izquierdo(n);
+                d = derecho(n);
+                menor = getMenor(n, i, d);
             }
-        }else {
-            int mayor = getMayor(n, derecho(n), izquierdo((n)));
-            if (n != mayor){
+        } else {
+            int mayor = getMayor(n, i, d);
+            while ( n != mayor) {
                 intercambia(n, mayor);
+                n = mayor;
+                i = izquierdo(n);
+                d = derecho(n);
+                mayor = getMayor(n, i, d);
             }
         }
+        return;
     }
 
     /**
@@ -187,8 +194,7 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      * esta operación con los métodos ya implementados sin mucho
      * esfuerzo.
      * @param elemento a eliminar del heap.
-     * @throws IllegalStateException
-     * Esta operación no debería ser posible
+     * @throws IllegalStateException Esta operación no debería ser posible
      * en un Heap
      */
     @Override public void elimina(T elemento) {
@@ -201,14 +207,14 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      * @return <code>true</code> si el elemento está contenido,
      *         <code>false</code> en otro caso.
      */
-    @Override public boolean contiene(T elemento){
-        Iterator<T> it = iterator();
-        while (it.hasNext()){
-            if (it.next().equals(elemento)){
-                return true;
-            }
-        }
-        return false;
+    @Override public boolean contiene(T elemento) {
+        boolean contiene = false;
+        int i = 0;
+        while(!contiene && i < siguiente)
+            if (arreglo[i++].equals(elemento))
+                contiene = true;
+
+        return contiene;
     }
 
     /**
@@ -217,41 +223,53 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      *         <tt>false</tt> en otro caso.
      */
     public boolean esVacio() {
-       return siguiente == 0;
+        return siguiente == 0;
     }
 
-    /* Método auxiliar que regresa el índice en el arreglo que
+    /** Método auxiliar que regresa el índice en el arreglo que
      * tiene al elemento menor de tres.
      * Recibe tres índices de elementos en el arreglo.
      */
     private int getMenor(int elemento, int i, int d){
-        int menor;
-        if (arreglo[elemento].compareTo(arreglo[i]) < 0){
-            menor = elemento;
-        }else {
-            menor = i;
+        if (i == -1 && d != -1 && elemento != -1) {
+            return (arreglo[d].compareTo(arreglo[elemento]) < 0)? d : elemento;
+
+        } else if (i != -1 && d == -1 && elemento != -1) {
+            return (arreglo[i].compareTo(arreglo[elemento]) < 0)? i : elemento;
+
+        } else if (i != -1 && d != -1 && elemento == -1) {
+            return (arreglo[d].compareTo(arreglo[i]) < 0)? d : i;
+
+        } else if (i == -1 && d == -1) {
+            return elemento;
+
+        } else {
+            int menor = (arreglo[elemento].compareTo(arreglo[i]) < 0)? elemento : i;
+            return (arreglo[menor].compareTo(arreglo[d]) < 0)? menor : d;
         }
-        if (arreglo[menor].compareTo(arreglo[d]) > 0) {
-            menor = d;
-        }
-        return menor;
     }
 
     /** Método auxiliar que regresa el índice en el arreglo que
-     * tiene al elemento mayor de tres.
+     * tiene al elemento menor de tres.
      * Recibe tres índices de elementos en el arreglo.
      */
     private int getMayor(int elemento, int i, int d){
-        int mayor;
-        if (arreglo[elemento].compareTo(arreglo[i]) > 0){
-            mayor = elemento;
-        }else {
-            mayor = i;
+        if (i == -1 && d != -1 && elemento != -1) {
+            return (arreglo[d].compareTo(arreglo[elemento]) > 0)? d : elemento;
+
+        } else if (i != -1 && d == -1 && elemento != -1) {
+            return (arreglo[i].compareTo(arreglo[elemento]) > 0)? i : elemento;
+
+        } else if (i != -1 && d != -1 && elemento == -1) {
+            return (arreglo[d].compareTo(arreglo[i]) > 0)? d : i;
+
+        } else if (i == -1 && d == -1) {
+            return elemento;
+
+        } else {
+            int menor = (arreglo[elemento].compareTo(arreglo[i]) > 0)? elemento : i;
+            return (arreglo[menor].compareTo(arreglo[d]) > 0)? menor : d;
         }
-        if (arreglo[mayor].compareTo(arreglo[d]) < 0) {
-            mayor = d;
-        }
-        return mayor;
     }
 
     /**
@@ -269,30 +287,29 @@ public abstract class Heap<T extends Comparable<T>> implements Coleccionable<T> 
      * @param esMin nos dice si el heap que manda a llamar esta operación es mínimo.
      */
     protected void reordena(int elemento, boolean esMin){
-        int i = 0;
-        if(esMin){
-            while (elemento > i){
-                int padre = padre(elemento);
-                System.out.println(padre);
-                System.out.println(padre);
-                if ( arreglo[padre].compareTo(arreglo[elemento-1]) > 0){
+        boolean continuar = true;
+        if (esMin) {
+            while(elemento > 0 && continuar){
+                int padre = madre(elemento);
+                if(arreglo[padre].compareTo(arreglo[elemento]) > 0){
                     intercambia(padre, elemento);
                     elemento = padre;
-                }else {
-                    return;
+                } else {
+                    continuar = false;
                 }
             }
-        }else {
-            while (elemento > i){
-                int padre = padre(elemento);
-                if (arreglo[padre].compareTo(arreglo[elemento]) < 0){
+        } else {
+            while(elemento > 0 && continuar){
+                int padre = madre(elemento);
+                if(arreglo[padre].compareTo(arreglo[elemento]) < 0){
                     intercambia(padre, elemento);
                     elemento = padre;
-                }else {
-                    return;
+                } else {
+                    continuar = false;
                 }
             }
         }
+        return;
     }
 
 

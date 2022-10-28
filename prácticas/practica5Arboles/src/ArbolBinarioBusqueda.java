@@ -72,7 +72,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     }
 
     protected void agregaNodo(Nodo<T> n, Nodo<T> nuevo) {
-        if(n.elemento.compareTo(nuevo.elemento) >= 0){
+        if(n.elemento.compareTo(nuevo.elemento) > 0){
             if (n.hayIzquierdo()){
                 agregaNodo(n.izquierdo, nuevo);
             }else {
